@@ -6,7 +6,7 @@ export const Location = v.object({
   placeName: v.optional(v.string()),
 });
 
-export const Entry = v.object({
+export const EntrySchema = v.object({
   body: v.string(),
   datetime: v.date(),
   tags: v.array(v.string()),
@@ -14,10 +14,36 @@ export const Entry = v.object({
   location: v.optional(Location),
 });
 
+export type Entry = v.InferOutput<typeof EntrySchema>;
+
 export const EntryQuery = v.object({
   year: v.pipe(v.string(), v.toNumber(), v.integer()),
-  month: v.pipe(v.string(), v.toNumber(), v.integer(), v.minValue(1), v.maxValue(12)),
-  day: v.pipe(v.string(), v.toNumber(), v.integer(), v.minValue(1), v.maxValue(31)),
-  hour: v.pipe(v.string(), v.toNumber(), v.integer(), v.minValue(0), v.maxValue(23)),
-  minute: v.pipe(v.string(), v.toNumber(), v.integer(), v.minValue(0), v.maxValue(59))
+  month: v.pipe(
+    v.string(),
+    v.toNumber(),
+    v.integer(),
+    v.minValue(1),
+    v.maxValue(12),
+  ),
+  day: v.pipe(
+    v.string(),
+    v.toNumber(),
+    v.integer(),
+    v.minValue(1),
+    v.maxValue(31),
+  ),
+  hour: v.pipe(
+    v.string(),
+    v.toNumber(),
+    v.integer(),
+    v.minValue(0),
+    v.maxValue(23),
+  ),
+  minute: v.pipe(
+    v.string(),
+    v.toNumber(),
+    v.integer(),
+    v.minValue(0),
+    v.maxValue(59),
+  ),
 });
