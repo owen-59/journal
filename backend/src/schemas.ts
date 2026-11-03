@@ -8,7 +8,7 @@ export const Location = v.object({
 
 export const EntrySchema = v.object({
   body: v.string(),
-  datetime: v.date(),
+  datetime: v.union([v.date(), v.pipe(v.string(), v.toDate())]),
   tags: v.array(v.string()),
   images: v.array(v.string()),
   location: v.optional(Location),
