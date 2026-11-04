@@ -14,5 +14,14 @@
         pnpm.enable = true;
     };
 
-    services.postgres.enable = true;
+    packages = [
+        pkgs.flutter
+    ];
+
+    processes.frontend-build-watcher = {
+        exec = "cd frontend && dart run build_runner watch";
+        env.FLUTTER_ROOT = "${pkgs.flutter}";
+    };
+
+    env.FLUTTER_ROOT = "${pkgs.flutter}";
 }
