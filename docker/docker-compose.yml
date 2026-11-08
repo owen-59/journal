@@ -1,6 +1,6 @@
 services:
   backend:
-    image: journal-backend:latest
+    image: ghcr.io/owen-59/web-journal-backend:latest
     ports:
       - 3000:3000
     volumes:
