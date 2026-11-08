@@ -1,0 +1,9 @@
+services:
+  backend:
+    image: journal-backend:latest
+    ports:
+      - 3000:3000
+    volumes:
+      - ../backend/data:/data
+    environment:
+      - JOURNAL_DATA=/data
