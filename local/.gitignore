@@ -1,0 +1,12 @@
+.devenv
+
+.android
+.dart_tool
+build
+flutter_*.log
+.flutter-plugins-dependencies
+lib/**/*.g.dart
+test/**/*.mocks.dart
+devtools_options.yaml
+local.properties
+release-keystore.jks

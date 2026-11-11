@@ -1,0 +1,60 @@
+name: journal
+description: "A new Flutter project."
+publish_to: "none"
+version: 1.8.3+1
+
+environment:
+  sdk: ^3.11.5
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  go_router: ^17.4.0
+  saf: ^2.1.0
+  saf_stream: ^3.0.0
+  flutter_riverpod: ^3.3.1
+  riverpod_annotation: ^4.0.2
+  logger: ^2.7.0
+  markdown_editor_live: ^0.6.0
+  dynamic_color: ^1.8.1
+  intl: ^0.20.3
+  shared_preferences: ^2.5.5
+  flutter_keyboard_controller: ^1.0.4
+  collection: ^1.19.1
+  image_picker: ^1.2.3
+  path: ^1.9.1
+  nominatim_flutter: ^0.0.8
+  stack_trace: ^1.12.1
+  yaml: ^3.1.4
+  dump_yaml: ^0.1.0-beta.6
+  sqflite: ^2.4.4+1
+  drift: ^2.35.2
+  drift_flutter: ^0.3.1
+  path_provider: ^2.1.6
+  maplibre_gl: ^0.27.1
+  url_launcher: ^6.3.3
+  permission_handler: ^13.0.2
+  measured: ^1.0.1
+  isolate_kit: ^1.0.2
+  flutter_image_compress: ^2.5.1
+  substring_highlight: ^1.0.33
+  flutter_sharing_intent: ^2.0.4
+  share_handler: ^0.0.25
+  exif_reader: ^4.2.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  flutter_lints: ^6.0.0
+  build_runner: ^2.16.2
+  riverpod_generator: ^4.0.3
+  drift_dev: ^2.35.1
+  mockito: ^5.8.1
+  flutter_launcher_icons: ^0.14.4
+  lints: ^6.1.0
+
+flutter:
+  uses-material-design: true
+
