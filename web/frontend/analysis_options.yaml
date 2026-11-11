@@ -1,0 +1,25 @@
+analyzer:
+  exclude:
+    - build/**
+    - android/**
+    - ios/**
+    - web/**
+    - windows/**
+    - macos/**
+    - linux/**
+include: 
+ - package:lints/recommended.yaml
+ - package:flutter_lints/flutter.yaml
+
+linter:
+  rules:
+    - always_declare_return_types
+    - always_use_package_imports
+    - annotate_overrides
+    - avoid_slow_async_io
+    - cancel_subscriptions
+    - comment_references
+    - control_flow_in_finally
+    - only_throw_errors
+    - prefer_final_locals
+    - prefer_double_quotes
