@@ -1,3 +1,4 @@
 .devenv
 local.properties
 node_modules/
+.dart_tool/

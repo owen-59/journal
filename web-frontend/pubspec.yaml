@@ -1,10 +1,11 @@
-name: frontend
-description: "A new Flutter project."
+name: web_frontend
+description: "Frontend for journaling website."
 publish_to: 'none'
 version: 0.2.0+1
 
 environment:
-  sdk: ^3.13.3
+  sdk: ^3.13.0
+resolution: workspace
 
 dependencies:
   auto_route: ^11.2.0
