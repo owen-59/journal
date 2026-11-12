@@ -5,9 +5,10 @@ import "package:flutter_test/flutter_test.dart";
 import "package:mockito/annotations.dart";
 import "package:mockito/mockito.dart";
 import "package:saf/saf.dart";
-import "package:journal/database.dart";
-import "package:journal/main.dart";
-import "package:journal/providers/entry_list.dart";
+import "package:local_journal/database.dart";
+import "package:local_journal/main.dart";
+import "package:local_journal/providers/entry_list.dart";
+
 import "entry_list_test.mocks.dart";
 
 Uri folderUri = Uri.parse("content://abcdefghijklmnopqrstuvwxyz");

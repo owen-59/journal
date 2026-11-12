@@ -1,5 +1,5 @@
 import "package:flutter_test/flutter_test.dart";
-import "package:journal/utils/months.dart";
+import "package:local_journal/utils/months.dart";
 
 void main() {
   group("getWeeksInMonth", () {

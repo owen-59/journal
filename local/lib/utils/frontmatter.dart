@@ -1,5 +1,5 @@
 import "package:dump_yaml/dump_yaml.dart";
-import "package:journal/logger.dart";
+import "package:local_journal/logger.dart";
 import "package:yaml/yaml.dart";
 
 Iterable<String> _getLinesSync(String text) sync* {

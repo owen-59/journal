@@ -1,6 +1,6 @@
 import "package:flutter/services.dart";
-import "package:journal/providers/entry.dart";
-import "package:journal/providers/image.dart";
+import "package:local_journal/providers/entry.dart";
+import "package:local_journal/providers/image.dart";
 import "package:riverpod_annotation/riverpod_annotation.dart";
 
 part "entry_main_image.g.dart";

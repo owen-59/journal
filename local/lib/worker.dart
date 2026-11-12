@@ -1,8 +1,8 @@
 import "package:flutter/services.dart";
 import "package:isolate_kit/isolate_kit.dart";
-import "package:journal/models/entry.dart";
-import "package:journal/workers/cache_image_task.dart";
-import "package:journal/workers/update_stale_cache_task.dart";
+import "package:local_journal/models/entry.dart";
+import "package:local_journal/workers/cache_image_task.dart";
+import "package:local_journal/workers/update_stale_cache_task.dart";
 
 class WorkerManager {
   final IsolateTaskRegistry _registry = IsolateTaskRegistry()

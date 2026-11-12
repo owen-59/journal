@@ -2,12 +2,12 @@ import "dart:async";
 
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
-import "package:journal/providers/search.dart";
-import "package:journal/widgets/error_card.dart";
-import "package:journal/widgets/sliver_entry_list.dart";
-import "package:journal/widgets/measure/entry_card.dart";
-import "package:journal/widgets/measure/entry_separator_with_text.dart";
-import "package:journal/widgets/measure/entry_separator_without_text.dart";
+import "package:local_journal/providers/search.dart";
+import "package:local_journal/widgets/error_card.dart";
+import "package:local_journal/widgets/sliver_entry_list.dart";
+import "package:local_journal/widgets/measure/entry_card.dart";
+import "package:local_journal/widgets/measure/entry_separator_with_text.dart";
+import "package:local_journal/widgets/measure/entry_separator_without_text.dart";
 
 class SearchPage extends ConsumerStatefulWidget {
   const SearchPage({super.key});

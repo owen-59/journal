@@ -1,6 +1,6 @@
 import "package:flutter/services.dart";
 import "package:isolate_kit/isolate_kit.dart";
-import "package:journal/models/entry.dart";
+import "package:local_journal/models/entry.dart";
 import "package:saf/saf.dart";
 import "package:saf_stream/saf_stream.dart";
 

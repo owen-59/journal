@@ -2,8 +2,8 @@ import "dart:async";
 
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
-import "package:journal/logger.dart";
-import "package:journal/providers/map_points.dart";
+import "package:local_journal/logger.dart";
+import "package:local_journal/providers/map_points.dart";
 import "package:maplibre_gl/maplibre_gl.dart";
 import "package:permission_handler/permission_handler.dart";
 import "package:url_launcher/link.dart";

@@ -1,4 +1,4 @@
-import "package:journal/utils/file.dart";
+import "package:local_journal/utils/file.dart";
 
 /// Matchs [input] with a regexp to extract the
 /// year, month, day, hour and minute.

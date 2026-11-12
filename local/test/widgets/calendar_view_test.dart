@@ -1,10 +1,10 @@
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:flutter_test/flutter_test.dart";
-import "package:journal/main.dart";
-import "package:journal/widgets/calendar_view.dart";
+import "package:local_journal/main.dart";
+import "package:local_journal/widgets/calendar_view.dart";
 import "package:mockito/annotations.dart";
-import "package:journal/database.dart";
+import "package:local_journal/database.dart";
 
 import "calendar_view_test.mocks.dart";
 

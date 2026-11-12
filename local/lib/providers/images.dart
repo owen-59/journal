@@ -1,9 +1,9 @@
 import "dart:async";
 
-import "package:journal/models/image.dart";
-import "package:journal/logger.dart";
-import "package:journal/providers/entry.dart";
-import "package:journal/providers/image.dart";
+import "package:local_journal/models/image.dart";
+import "package:local_journal/logger.dart";
+import "package:local_journal/providers/entry.dart";
+import "package:local_journal/providers/image.dart";
 import "package:riverpod_annotation/riverpod_annotation.dart";
 
 part "images.g.dart";

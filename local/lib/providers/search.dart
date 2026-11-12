@@ -1,7 +1,7 @@
 import "package:drift/drift.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
-import "package:journal/database.dart";
-import "package:journal/main.dart";
+import "package:local_journal/database.dart";
+import "package:local_journal/main.dart";
 
 final searchProvider = FutureProvider.autoDispose
     .family<List<EntriesCacheData>, String>((ref, String query) async {

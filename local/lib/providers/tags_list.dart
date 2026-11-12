@@ -1,5 +1,5 @@
 import "package:collection/collection.dart";
-import "package:journal/providers/cache_entries.dart";
+import "package:local_journal/providers/cache_entries.dart";
 import "package:riverpod_annotation/riverpod_annotation.dart";
 
 part "tags_list.g.dart";

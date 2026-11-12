@@ -2,11 +2,11 @@ import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:go_router/go_router.dart";
 import "package:intl/intl.dart";
-import "package:journal/providers/entry.dart";
-import "package:journal/providers/entry_main_image.dart";
-import "package:journal/providers/image.dart";
-import "package:journal/widgets/entry_card_template.dart";
-import "package:journal/widgets/error_card.dart";
+import "package:local_journal/providers/entry.dart";
+import "package:local_journal/providers/entry_main_image.dart";
+import "package:local_journal/providers/image.dart";
+import "package:local_journal/widgets/entry_card_template.dart";
+import "package:local_journal/widgets/error_card.dart";
 import "package:substring_highlight/substring_highlight.dart";
 
 class EntryCard extends ConsumerWidget {
@@ -66,25 +66,24 @@ class EntryCard extends ConsumerWidget {
                                     children: [
                                       Text(
                                         "\n\n",
-                                        style: Theme.of(
-                                          context,
-                                        ).textTheme.bodyLarge,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodyLarge,
                                       ),
                                       SubstringHighlight(
                                         text: value.body,
                                         term: searchText ?? "",
                                         textStyle:
-                                            Theme.of(
-                                              context,
-                                            ).textTheme.bodyLarge ??
+                                            Theme.of(context)
+                                                .textTheme
+                                                .bodyLarge ??
                                             DefaultTextStyle.of(context).style,
                                         textStyleHighlight:
-                                            (Theme.of(
-                                                      context,
-                                                    ).textTheme.bodyLarge ??
-                                                    DefaultTextStyle.of(
-                                                      context,
-                                                    ).style)
+                                            (Theme.of(context)
+                                                        .textTheme
+                                                        .bodyLarge ??
+                                                    DefaultTextStyle.of(context)
+                                                        .style)
                                                 .copyWith(
                                                   backgroundColor:
                                                       Theme.of(context)
@@ -107,9 +106,9 @@ class EntryCard extends ConsumerWidget {
                                   overflow: TextOverflow.fade,
                                   style: Theme.of(context).textTheme.labelMedium
                                       ?.copyWith(
-                                        color: Theme.of(
-                                          context,
-                                        ).colorScheme.primary,
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .primary,
                                       ),
                                 ),
                               ],

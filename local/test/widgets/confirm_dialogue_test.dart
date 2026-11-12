@@ -1,6 +1,6 @@
 import "package:flutter/material.dart";
 import "package:flutter_test/flutter_test.dart";
-import "package:journal/widgets/confirm_dialogue.dart";
+import "package:local_journal/widgets/confirm_dialogue.dart";
 
 Future<void> _setupTests(
   WidgetTester tester, {
@@ -9,9 +9,8 @@ Future<void> _setupTests(
   await tester.pumpWidget(
     MaterialApp(
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(
-          seedColor: Colors.blue,
-        ).copyWith(onErrorContainer: Colors.red),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue)
+            .copyWith(onErrorContainer: Colors.red),
       ),
       home: ConfirmDialogue(
         titleText: "TITLE",

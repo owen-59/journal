@@ -1,4 +1,4 @@
-import "package:journal/utils/location.dart";
+import "package:local_journal/utils/location.dart";
 import "package:maplibre_gl/maplibre_gl.dart";
 import "package:nominatim_flutter/model/request/reverse_request.dart";
 import "package:nominatim_flutter/nominatim_flutter.dart";

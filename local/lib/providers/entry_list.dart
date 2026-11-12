@@ -4,14 +4,14 @@ import "dart:ui";
 
 import 'package:collection/collection.dart';
 import 'package:intl/intl.dart';
-import 'package:journal/database.dart';
-import 'package:journal/logger.dart';
-import 'package:journal/main.dart';
-import 'package:journal/providers/cache_entries.dart';
-import 'package:journal/providers/entry.dart';
-import 'package:journal/utils/exif.dart';
-import 'package:journal/utils/file.dart';
-import 'package:journal/workers/update_stale_cache_task.dart';
+import 'package:local_journal/database.dart';
+import 'package:local_journal/logger.dart';
+import 'package:local_journal/main.dart';
+import 'package:local_journal/providers/cache_entries.dart';
+import 'package:local_journal/providers/entry.dart';
+import 'package:local_journal/utils/exif.dart';
+import 'package:local_journal/utils/file.dart';
+import 'package:local_journal/workers/update_stale_cache_task.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:path/path.dart' as path;
 
