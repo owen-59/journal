@@ -9,9 +9,8 @@ Future<void> _setupTests(
   await tester.pumpWidget(
     MaterialApp(
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(
-          seedColor: Colors.blue,
-        ).copyWith(onErrorContainer: Colors.red),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue)
+            .copyWith(onErrorContainer: Colors.red),
       ),
       home: ConfirmDialogue(
         titleText: "TITLE",

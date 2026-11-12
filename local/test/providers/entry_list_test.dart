@@ -8,6 +8,7 @@ import "package:saf/saf.dart";
 import "package:local_journal/database.dart";
 import "package:local_journal/main.dart";
 import "package:local_journal/providers/entry_list.dart";
+
 import "entry_list_test.mocks.dart";
 
 Uri folderUri = Uri.parse("content://abcdefghijklmnopqrstuvwxyz");

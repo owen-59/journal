@@ -66,25 +66,24 @@ class EntryCard extends ConsumerWidget {
                                     children: [
                                       Text(
                                         "\n\n",
-                                        style: Theme.of(
-                                          context,
-                                        ).textTheme.bodyLarge,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodyLarge,
                                       ),
                                       SubstringHighlight(
                                         text: value.body,
                                         term: searchText ?? "",
                                         textStyle:
-                                            Theme.of(
-                                              context,
-                                            ).textTheme.bodyLarge ??
+                                            Theme.of(context)
+                                                .textTheme
+                                                .bodyLarge ??
                                             DefaultTextStyle.of(context).style,
                                         textStyleHighlight:
-                                            (Theme.of(
-                                                      context,
-                                                    ).textTheme.bodyLarge ??
-                                                    DefaultTextStyle.of(
-                                                      context,
-                                                    ).style)
+                                            (Theme.of(context)
+                                                        .textTheme
+                                                        .bodyLarge ??
+                                                    DefaultTextStyle.of(context)
+                                                        .style)
                                                 .copyWith(
                                                   backgroundColor:
                                                       Theme.of(context)
@@ -107,9 +106,9 @@ class EntryCard extends ConsumerWidget {
                                   overflow: TextOverflow.fade,
                                   style: Theme.of(context).textTheme.labelMedium
                                       ?.copyWith(
-                                        color: Theme.of(
-                                          context,
-                                        ).colorScheme.primary,
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .primary,
                                       ),
                                 ),
                               ],
