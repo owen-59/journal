@@ -9,8 +9,18 @@
         buildTools.version = [ "34.0.0" "35.0.0" "36.0.0" "37.0.0" ];
     };
 
-    languages.java.jdk.package = pkgs.jdk21;
-    languages.java.lsp.package = lib.mkForce pkgs.jdt-language-server;
+    languages = {
+        java = {
+            jdk.package = pkgs.jdk21;
+            lsp.package = lib.mkForce pkgs.jdt-language-server;
+        };
+        javascript = {
+            enable = true;
+            package = pkgs.nodejs_24;
+            nodejs.enable = true;
+            pnpm.enable = true;
+        };
+    };
 
     packages = with pkgs; [
         at-spi2-core
