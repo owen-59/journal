@@ -1,6 +1,6 @@
 import "package:flutter/material.dart";
-import "package:frontend/widgets/entry_card.dart";
-import "package:frontend/widgets/entry_card_separator.dart";
+import "package:web_frontend/widgets/entry_card.dart";
+import "package:web_frontend/widgets/entry_card_separator.dart";
 
 class SliverEntryList extends StatelessWidget {
   final List<DateTime> entries;

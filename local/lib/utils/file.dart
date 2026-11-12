@@ -1,7 +1,7 @@
 import "dart:convert";
 import "dart:typed_data";
 
-import "package:journal/logger.dart";
+import "package:local_journal/logger.dart";
 import "package:saf/saf.dart";
 import "package:saf_stream/saf_stream.dart";
 import "package:saf_stream/saf_stream_platform_interface.dart";

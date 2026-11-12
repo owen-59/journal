@@ -1,6 +1,6 @@
 import "package:flutter/material.dart";
 import "package:flutter_test/flutter_test.dart";
-import "package:journal/widgets/error_card.dart";
+import "package:local_journal/widgets/error_card.dart";
 
 const errorObject = {"Something": "Something"};
 

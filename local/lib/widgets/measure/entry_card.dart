@@ -1,5 +1,5 @@
 import "package:flutter/widgets.dart";
-import "package:journal/widgets/entry_card.dart";
+import "package:local_journal/widgets/entry_card.dart";
 import "package:measured/measured.dart";
 
 class EntryCardMeasurer extends StatelessWidget {

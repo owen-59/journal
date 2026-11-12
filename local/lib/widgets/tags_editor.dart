@@ -2,7 +2,7 @@ import "package:collection/collection.dart";
 import "package:flutter/material.dart";
 import "package:flutter_keyboard_controller/flutter_keyboard_controller.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
-import "package:journal/providers/tags_list.dart";
+import "package:local_journal/providers/tags_list.dart";
 
 class TagsEditor extends ConsumerStatefulWidget {
   const TagsEditor({super.key, required this.initialTags});

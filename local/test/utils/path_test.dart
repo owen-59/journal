@@ -1,5 +1,5 @@
 import "package:flutter_test/flutter_test.dart";
-import "package:journal/utils/path.dart";
+import "package:local_journal/utils/path.dart";
 
 void main() {
   group("getTimeFromPath", () {

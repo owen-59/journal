@@ -1,8 +1,8 @@
 import "package:drift/drift.dart";
 import "package:drift_flutter/drift_flutter.dart";
-import "package:journal/database.steps.dart";
-import "package:journal/models/entry.dart";
-import "package:journal/utils/string_list_converter.dart";
+import "package:local_journal/database.steps.dart";
+import "package:local_journal/models/entry.dart";
+import "package:local_journal/utils/string_list_converter.dart";
 import "package:path_provider/path_provider.dart";
 
 part "database.g.dart";

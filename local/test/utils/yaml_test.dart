@@ -1,5 +1,5 @@
 import "package:flutter_test/flutter_test.dart";
-import "package:journal/utils/yaml.dart";
+import "package:local_journal/utils/yaml.dart";
 import "package:yaml/yaml.dart";
 
 void main() {

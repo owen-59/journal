@@ -1,5 +1,5 @@
 import "package:flutter/widgets.dart";
-import "package:frontend/widgets/entry_card_separator.dart";
+import "package:web_frontend/widgets/entry_card_separator.dart";
 import "package:measured/measured.dart";
 
 class EntrySeparatorWithTextMeasurer extends StatelessWidget {

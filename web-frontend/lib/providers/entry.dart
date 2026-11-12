@@ -1,8 +1,8 @@
-import "package:frontend/exceptions.dart";
-import "package:frontend/logger.dart";
-import "package:frontend/models/entry.dart";
-import "package:frontend/models/location.dart";
-import "package:frontend/providers/dio_client.dart";
+import "package:web_frontend/exceptions.dart";
+import "package:web_frontend/logger.dart";
+import "package:web_frontend/models/entry.dart";
+import "package:web_frontend/models/location.dart";
+import "package:web_frontend/providers/dio_client.dart";
 import "package:intl/intl.dart";
 import "package:riverpod_annotation/riverpod_annotation.dart";
 

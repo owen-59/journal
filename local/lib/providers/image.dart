@@ -1,11 +1,11 @@
 import "dart:io";
 
 import "package:flutter/services.dart";
-import "package:journal/logger.dart";
-import "package:journal/main.dart";
-import "package:journal/utils/file.dart";
-import "package:journal/utils/path.dart";
-import "package:journal/workers/cache_image_task.dart";
+import "package:local_journal/logger.dart";
+import "package:local_journal/main.dart";
+import "package:local_journal/utils/file.dart";
+import "package:local_journal/utils/path.dart";
+import "package:local_journal/workers/cache_image_task.dart";
 import "package:path_provider/path_provider.dart";
 import "package:riverpod_annotation/riverpod_annotation.dart";
 import "package:path/path.dart" as path;

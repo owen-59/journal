@@ -1,6 +1,6 @@
 import "package:flutter/material.dart";
 import "package:flutter_test/flutter_test.dart";
-import "package:journal/widgets/confirm_dialogue.dart";
+import "package:local_journal/widgets/confirm_dialogue.dart";
 
 Future<void> _setupTests(
   WidgetTester tester, {

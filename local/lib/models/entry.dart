@@ -1,11 +1,11 @@
 import "dart:typed_data";
 
 import "package:flutter/material.dart";
-import "package:journal/utils/location.dart";
-import "package:journal/utils/yaml.dart";
-import "package:journal/logger.dart";
-import "package:journal/utils/file.dart";
-import "package:journal/utils/frontmatter.dart";
+import "package:local_journal/utils/location.dart";
+import "package:local_journal/utils/yaml.dart";
+import "package:local_journal/logger.dart";
+import "package:local_journal/utils/file.dart";
+import "package:local_journal/utils/frontmatter.dart";
 import "package:saf/saf.dart";
 import "package:saf_stream/saf_stream.dart";
 import "package:yaml/yaml.dart";

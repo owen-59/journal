@@ -3,8 +3,8 @@ import "dart:async";
 import "package:auto_route/auto_route.dart";
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
-import "package:frontend/logger.dart";
-import "package:frontend/providers/entry.dart";
+import "package:web_frontend/logger.dart";
+import "package:web_frontend/providers/entry.dart";
 import "package:markdown_editor_live/markdown_editor_live.dart";
 
 @RoutePage()

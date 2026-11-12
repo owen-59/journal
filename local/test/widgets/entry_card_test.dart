@@ -1,11 +1,11 @@
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:flutter_test/flutter_test.dart";
-import "package:journal/database.dart";
-import "package:journal/main.dart";
-import "package:journal/models/entry.dart";
-import "package:journal/providers/entry.dart";
-import "package:journal/widgets/entry_card.dart";
+import "package:local_journal/database.dart";
+import "package:local_journal/main.dart";
+import "package:local_journal/models/entry.dart";
+import "package:local_journal/providers/entry.dart";
+import "package:local_journal/widgets/entry_card.dart";
 import "package:mockito/annotations.dart";
 
 import "calendar_view_test.mocks.dart";

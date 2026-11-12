@@ -1,6 +1,6 @@
 .devenv
 
-.android
+.android/
 .dart_tool
 build
 flutter_*.log

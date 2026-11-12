@@ -1,6 +1,6 @@
 import "package:collection/collection.dart";
-import "package:frontend/exceptions.dart";
-import "package:frontend/providers/dio_client.dart";
+import "package:web_frontend/exceptions.dart";
+import "package:web_frontend/providers/dio_client.dart";
 import "package:riverpod_annotation/riverpod_annotation.dart";
 
 part "entry_list.g.dart";

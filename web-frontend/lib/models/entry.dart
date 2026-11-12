@@ -1,5 +1,5 @@
-import "package:frontend/exceptions.dart";
-import "package:frontend/models/location.dart";
+import "package:web_frontend/exceptions.dart";
+import "package:web_frontend/models/location.dart";
 
 class Entry {
   final String body;

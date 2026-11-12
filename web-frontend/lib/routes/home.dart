@@ -3,11 +3,11 @@ import "package:auto_route/auto_route.dart";
 import "package:flutter/rendering.dart";
 import "package:flutter_web_scroll/flutter_web_scroll.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
-import "package:frontend/providers/entry_list.dart";
-import "package:frontend/widgets/measure/entry_card.dart";
-import "package:frontend/widgets/measure/entry_separator_with_text.dart";
-import "package:frontend/widgets/measure/entry_separator_without_text.dart";
-import "package:frontend/widgets/sliver_entry_list.dart";
+import "package:web_frontend/providers/entry_list.dart";
+import "package:web_frontend/widgets/measure/entry_card.dart";
+import "package:web_frontend/widgets/measure/entry_separator_with_text.dart";
+import "package:web_frontend/widgets/measure/entry_separator_without_text.dart";
+import "package:web_frontend/widgets/sliver_entry_list.dart";
 
 @RoutePage()
 class HomePage extends ConsumerStatefulWidget {

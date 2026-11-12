@@ -1,9 +1,9 @@
 import "package:auto_route/auto_route.dart";
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
-import "package:frontend/providers/entry.dart";
-import "package:frontend/router.gr.dart";
-import "package:frontend/widgets/entry_card_template.dart";
+import "package:web_frontend/providers/entry.dart";
+import "package:web_frontend/router.gr.dart";
+import "package:web_frontend/widgets/entry_card_template.dart";
 import "package:intl/intl.dart";
 
 class EntryCard extends ConsumerWidget {
