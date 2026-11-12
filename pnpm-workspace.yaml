@@ -1,4 +1,4 @@
 packages:
-  - backend
+  - web-backend
 allowBuilds:
   esbuild: true
