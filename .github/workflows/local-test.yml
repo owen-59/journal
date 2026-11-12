@@ -7,6 +7,9 @@ on:
 jobs:
   test:
     runs-on: ubuntu-24.04
+    defaults:
+      run:
+        working-directory: ./local
     steps:
       - name: Checkout repository
         uses: actions/checkout@v5
