@@ -19,9 +19,6 @@ RUN pnpm install
 RUN pnpm run build
 RUN pnpm prune --production
 
-RUN ls /app/
-RUN ls /app/web-backend/
-
 FROM base AS runner
 WORKDIR /app
 
