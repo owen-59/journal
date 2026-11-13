@@ -44,4 +44,5 @@ RUN addgroup --system --gid 1001 groupuser
 RUN adduser --system --uid 1001 appuser
 
 COPY --from=builder --chown=appuser:groupuser /app/web-frontend/build/web /usr/share/nginx/html
+COPY --chown=appuser:groupuser ./docker/nginx.conf /etc/nginx/conf.d/default.conf
 
