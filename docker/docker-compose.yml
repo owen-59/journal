@@ -1,10 +1,10 @@
 services:
   backend:
-    image: ghcr.io/owen-59/web-journal-backend:latest
+    image: journal-backend
     ports:
       - 3000:3000
     volumes:
-      - ../backend/data:/data
+      - ../web-backend/data:/data
     environment:
       - JOURNAL_DATA=/data
   frontend:

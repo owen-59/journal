@@ -24,14 +24,15 @@ RUN groupadd -g 1000 appgroup && \
     useradd -u 1000 -g appgroup -m -s /bin/bash appuser
 
 WORKDIR /app
-COPY --chown=appuser:appgroup ./frontend/lib ./lib
-COPY --chown=appuser:appgroup ./frontend/web ./web
-COPY --chown=appuser:appgroup ./frontend/pubspec* .
+COPY --chown=appuser:appgroup ./pubspec* ./
+COPY --chown=appuser:appgroup ./web-frontend/lib ./web-frontend/lib
+COPY --chown=appuser:appgroup ./web-frontend/web ./web-frontend/web
+COPY --chown=appuser:appgroup ./web-frontend/pubspec* ./web-frontend/
 
 RUN chown -R appuser:appgroup /app
 USER appuser
 
-WORKDIR /app
+WORKDIR /app/web-frontend
 
 RUN flutter pub get
 RUN dart run build_runner build
@@ -42,5 +43,6 @@ FROM nginx:alpine AS runner
 RUN addgroup --system --gid 1001 groupuser
 RUN adduser --system --uid 1001 appuser
 
-COPY --from=builder --chown=appuser:groupuser /app/build/web /usr/share/nginx/html
+COPY --from=builder --chown=appuser:groupuser /app/web-frontend/build/web /usr/share/nginx/html
+COPY --chown=appuser:groupuser ./docker/nginx.conf /etc/nginx/conf.d/default.conf
 
