@@ -9,13 +9,18 @@ RUN apk add --no-cache gcompat
 WORKDIR /app
 COPY pnpm-lock.yaml pnpm-workspace.yaml ./
 
-WORKDIR /app/backend
-COPY backend/package.json backend/tsconfig.json ./
-COPY backend/src ./src
+COPY pnpm-*.yaml .
+COPY web-backend/package.json web-backend/tsconfig.json ./web-backend/
+COPY web-backend/src ./web-backend/src
+
+WORKDIR /app/web-backend
 
 RUN pnpm install
 RUN pnpm run build
 RUN pnpm prune --production
+
+RUN ls /app/
+RUN ls /app/web-backend/
 
 FROM base AS runner
 WORKDIR /app
@@ -23,14 +28,15 @@ WORKDIR /app
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 hono
 
+COPY --from=builder --chown=hono:nodejs /app/web-backend/node_modules /app/web-backend/node_modules
 COPY --from=builder --chown=hono:nodejs /app/node_modules /app/node_modules
-COPY --from=builder --chown=hono:nodejs /app/pnpm-lock.yaml /app/backend/pnpm-lock.yaml
-COPY --from=builder --chown=hono:nodejs /app/pnpm-workspace.yaml /app/backend/pnpm-workspace.yaml
-COPY --from=builder --chown=hono:nodejs /app/backend/dist /app/backend/dist
-COPY --from=builder --chown=hono:nodejs /app/backend/package.json /app/backend/package.json
-COPY --from=builder --chown=hono:nodejs /app/backend/node_modules /app/backend/node_modules
+COPY --from=builder --chown=hono:nodejs /app/pnpm-lock.yaml /app/pnpm-lock.yaml
+COPY --from=builder --chown=hono:nodejs /app/pnpm-workspace.yaml /app/pnpm-workspace.yaml
+COPY --from=builder --chown=hono:nodejs /app/web-backend/dist /app/web-backend/dist
+COPY --from=builder --chown=hono:nodejs /app/web-backend/package.json /app/web-backend/package.json
+COPY --from=builder --chown=hono:nodejs /app/web-backend/node_modules /app/web-backend/node_modules
 
 USER hono
 EXPOSE 3000
 
-CMD ["node", "/app/backend/dist/index.js"]
+CMD ["node", "/app/web-backend/dist/index.js"]
