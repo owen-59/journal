@@ -2,6 +2,7 @@ import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:intl/intl.dart";
 import "package:local_journal/providers/day_image.dart";
+import "package:local_journal/providers/day_info.dart";
 import "package:local_journal/utils/months.dart";
 import "package:measured/measured.dart";
 
@@ -151,12 +152,16 @@ class DayCell extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final image = ref.watch(dayImageProvider(dt));
+    final dayInfo = ref.watch(dayInfoProvider(dt));
     final dimension = getGridLineHeight(context);
     final imageCacheDimension =
         (dimension * MediaQuery.devicePixelRatioOf(context)).round();
 
-    return SizedBox(
+    return Container(
       height: getGridLineHeight(context),
+      color: dayInfo.hasValue && dayInfo.value!.hasEntries
+          ? Theme.of(context).colorScheme.secondaryContainer
+          : null,
       child: GestureDetector(
         onTap: () => goToDate(dt),
         behavior: HitTestBehavior.opaque,
@@ -165,7 +170,11 @@ class DayCell extends ConsumerWidget {
             Center(
               child: Text(
                 "${dt.day}",
-                style: Theme.of(context).textTheme.labelSmall,
+                style: Theme.of(context).textTheme.labelSmall?.copyWith(
+                  color: dayInfo.hasValue && dayInfo.value!.hasEntries
+                      ? Theme.of(context).colorScheme.onSecondaryContainer
+                      : null,
+                ),
               ),
             ),
             switch (image) {
