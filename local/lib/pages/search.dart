@@ -21,14 +21,14 @@ class _SearchPageState extends ConsumerState<SearchPage> {
   double _entrySeparatorWithTextHeight = 0;
   double _entrySeparatorWithoutTextHeight = 0;
 
-  var slowQuery = "";
+  var rateLimitedQuery = "";
   var query = "";
   var timer = Timer(const Duration(), () {});
   var isReversed = true;
 
   @override
   Widget build(BuildContext context) {
-    final searchResults = ref.watch(searchProvider(slowQuery));
+    final searchResults = ref.watch(searchProvider(rateLimitedQuery));
 
     return Scaffold(
       appBar: AppBar(
@@ -59,8 +59,8 @@ class _SearchPageState extends ConsumerState<SearchPage> {
                       onChanged: (text) => setState(() {
                         query = text;
                         timer.cancel();
-                        timer = Timer(Duration(milliseconds: 500), () {
-                          setState(() => slowQuery = query);
+                        timer = Timer(Duration(milliseconds: 100), () {
+                          setState(() => rateLimitedQuery = query);
                         });
                       }),
                       autofocus: true,
