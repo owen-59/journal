@@ -88,9 +88,9 @@ class EntryList extends _$EntryList {
     if (!skipDbDelete) {
       final database = ref.read(appDatabaseProvider);
 
-      (database.delete(database.entriesCache)
-        ..where((t) => t.createdDate.isValue(entryDt)))
-        .go();
+      (database.delete(
+        database.entriesCache,
+      )..where((t) => t.createdDate.isValue(entryDt))).go();
     }
   }
 
@@ -207,9 +207,9 @@ class EntryList extends _$EntryList {
   Future<void> clearStaleEntries(List<DateTime> entries) async {
     final database = ref.read(appDatabaseProvider);
 
-    await (database.delete(database.entriesCache)
-      ..where((tbl) => tbl.createdDate.isNotIn(entries)))
-      .go();
+    await (database.delete(
+      database.entriesCache,
+    )..where((tbl) => tbl.createdDate.isNotIn(entries))).go();
 
     ref.invalidate(cacheEntriesProvider);
   }
