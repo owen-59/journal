@@ -1,19 +1,19 @@
-import 'dart:async';
-import 'dart:io';
+import "dart:async";
+import "dart:io";
 import "dart:ui";
 
-import 'package:collection/collection.dart';
-import 'package:intl/intl.dart';
-import 'package:local_journal/database.dart';
-import 'package:local_journal/logger.dart';
-import 'package:local_journal/main.dart';
-import 'package:local_journal/providers/cache_entries.dart';
-import 'package:local_journal/providers/entry.dart';
-import 'package:local_journal/utils/exif.dart';
-import 'package:local_journal/utils/file.dart';
-import 'package:local_journal/workers/update_stale_cache_task.dart';
-import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:path/path.dart' as path;
+import "package:collection/collection.dart";
+import "package:intl/intl.dart";
+import "package:local_journal/database.dart";
+import "package:local_journal/logger.dart";
+import "package:local_journal/main.dart";
+import "package:local_journal/providers/cache_entries.dart";
+import "package:local_journal/providers/entry.dart";
+import "package:local_journal/utils/exif.dart";
+import "package:local_journal/utils/file.dart";
+import "package:local_journal/workers/update_stale_cache_task.dart";
+import "package:riverpod_annotation/riverpod_annotation.dart";
+import "package:path/path.dart" as path;
 
 part "entry_list.g.dart";
 
@@ -85,6 +85,13 @@ class EntryList extends _$EntryList {
         .where((stateEntryDt) => !_isSameDatetime(entryDt, stateEntryDt))
         .toList();
     state = AsyncData(_state);
+    if (!skipDbDelete) {
+      final database = ref.read(appDatabaseProvider);
+
+      (database.delete(database.entriesCache)
+        ..where((t) => t.createdDate.isValue(entryDt)))
+        .go();
+    }
   }
 
   Future<DateTime> newEntry({DateTime? requestDt}) async {
@@ -173,6 +180,7 @@ class EntryList extends _$EntryList {
           }
         }
       }
+      clearStaleEntries(_state);
       state = AsyncData(_state);
     } catch (err, trace) {
       state = AsyncError(err, trace);
@@ -194,5 +202,15 @@ class EntryList extends _$EntryList {
     await entry.writeWith();
 
     return entry.getDatetime();
+  }
+
+  Future<void> clearStaleEntries(List<DateTime> entries) async {
+    final database = ref.read(appDatabaseProvider);
+
+    await (database.delete(database.entriesCache)
+      ..where((tbl) => tbl.createdDate.isNotIn(entries)))
+      .go();
+
+    ref.invalidate(cacheEntriesProvider);
   }
 }
