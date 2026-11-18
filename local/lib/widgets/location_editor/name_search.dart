@@ -1,3 +1,5 @@
+import "dart:async";
+
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:local_journal/providers/osm_search.dart";
@@ -12,18 +14,28 @@ class NameSearch extends ConsumerStatefulWidget {
 }
 
 class _NameSearchState extends ConsumerState<NameSearch> {
-  String searchInput = "";
+  String rateLimitedQuery = "";
+  String query = "";
+  Timer timer = Timer(const Duration(), () {});
 
   @override
   Widget build(BuildContext context) {
-    final searchResults = ref.watch(osmSearchProvider(searchInput));
+    final searchResults = ref.watch(osmSearchProvider(rateLimitedQuery));
+
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
       child: Column(
         children: [
           TextField(
             decoration: InputDecoration(hintText: "Search for a place"),
-            onSubmitted: (text) => setState(() => searchInput = text),
+            onChanged: (text) => setState(() {
+              query = text;
+              timer.cancel();
+              timer = Timer(Duration(milliseconds: 500), () {
+                setState(() => rateLimitedQuery = query);
+              });
+            }),
+            onSubmitted: (text) => setState(() => rateLimitedQuery = text),
             autofocus: true,
             textInputAction: TextInputAction.search,
           ),
