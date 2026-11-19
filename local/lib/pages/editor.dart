@@ -148,9 +148,7 @@ class _EntryEditorState extends ConsumerState<EntryEditorPage> {
 
   void onGoBack(bool didPop, BuildContext context, Object? popObject) {
     if (!didPop || popObject == "DO_NOT_WRITE" || !hasBeenEdited) return;
-    ref
-        .read(entryProvider(widget.dt).notifier)
-        .writeWith(body: body);
+    ref.read(entryProvider(widget.dt).notifier).writeWith(body: body);
   }
 
   Future<void> setDatetime(
@@ -273,9 +271,7 @@ class _EntryEditorState extends ConsumerState<EntryEditorPage> {
         await ref
             .read(entryProvider(newEntry.datetime).notifier)
             .addImage(bytes, name, image.path);
-        await ref
-            .read(entryProvider(newEntry.datetime).notifier)
-            .writeWith();
+        await ref.read(entryProvider(newEntry.datetime).notifier).writeWith();
         if (context.mounted) {
           context.replaceRoute(EntryEditorRoute(dt: newEntry.datetime));
         }
@@ -289,9 +285,7 @@ class _EntryEditorState extends ConsumerState<EntryEditorPage> {
 
   Future<void> onRemoveImageLink(Entry entry, String imageData) async {
     logger.i("Removing $imageData");
-    await ref
-        .read(entryProvider(widget.dt).notifier)
-        .removeImage(imageData);
+    await ref.read(entryProvider(widget.dt).notifier).removeImage(imageData);
   }
 
   Future<void> onSetLocationClicked(BuildContext context, Entry entry) async {

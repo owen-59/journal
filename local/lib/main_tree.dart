@@ -99,7 +99,7 @@ class _MainTreeState extends State<MainTree> {
                     brightness: Brightness.dark,
                   ),
               scaffoldBackgroundColor: dark?.surface,
-              canvasColor: dark?.surface
+              canvasColor: dark?.surface,
             ),
           ),
         ),

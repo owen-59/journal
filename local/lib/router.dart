@@ -7,12 +7,12 @@ class AppRouter extends RootStackRouter {
   RouteType get defaultRouteType => RouteType.custom(
     transitionsBuilder: TransitionsBuilders.slideLeftWithFade,
     duration: const Duration(milliseconds: 200),
-    reverseDuration: const Duration(milliseconds: 150)
+    reverseDuration: const Duration(milliseconds: 150),
   );
 
   @override
   List<AutoRoute> get routes => [
     AutoRoute(page: HomeRoute.page, initial: true),
-    AutoRoute(page: EntryEditorRoute.page)
+    AutoRoute(page: EntryEditorRoute.page),
   ];
 }
