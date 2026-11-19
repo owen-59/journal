@@ -197,11 +197,11 @@ class EntryList extends _$EntryList {
     final imageName = path.basenameWithoutExtension(file.path);
     final ext = path.extension(file.path);
 
-    final entry = ref.read(entryProvider(newEntryDt.toString()).notifier);
+    final entry = ref.read(entryProvider(newEntryDt).notifier);
     await entry.addImage(bytes, imageName, ext);
     await entry.writeWith();
 
-    return entry.getDatetime();
+    return newEntryDt;
   }
 
   Future<void> clearStaleEntries(List<DateTime> entries) async {

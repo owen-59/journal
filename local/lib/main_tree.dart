@@ -5,30 +5,16 @@ import "package:dynamic_color/dynamic_color.dart";
 import "package:flutter/material.dart";
 import "package:flutter_keyboard_controller/flutter_keyboard_controller.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
-import "package:go_router/go_router.dart";
 import "package:local_journal/database.dart";
 import "package:local_journal/logger.dart";
 import "package:local_journal/main.dart";
-import "package:local_journal/pages/editor.dart";
-import "package:local_journal/pages/home.dart";
 import "package:local_journal/providers/entry_list.dart";
+import "package:local_journal/router.dart";
+import "package:local_journal/router.gr.dart";
 import "package:local_journal/worker.dart";
 import "package:share_handler/share_handler.dart";
 
-final GlobalKey<NavigatorState> _rootNavigatorKey = GlobalKey<NavigatorState>();
 final GlobalKey _providerScopeKey = GlobalKey();
-
-final _router = GoRouter(
-  navigatorKey: _rootNavigatorKey,
-  routes: [
-    GoRoute(path: "/", builder: (context, state) => const HomeScreen()),
-    GoRoute(
-      path: "/entry/:datetime",
-      builder: (context, state) =>
-          EntryEditor(entryDateString: state.pathParameters["datetime"]!),
-    ),
-  ],
-);
 
 class MainTree extends StatefulWidget {
   final Uri folderUri;
@@ -46,6 +32,7 @@ class MainTree extends StatefulWidget {
 }
 
 class _MainTreeState extends State<MainTree> {
+  final _appRouter = AppRouter();
   late final ProviderContainer _providerContainer;
 
   @override
@@ -82,7 +69,7 @@ class _MainTreeState extends State<MainTree> {
         final entryList = _providerContainer.read(entryListProvider.notifier);
         final entryDt = await entryList.createEntryWithImage(File(file.path));
         logger.d("Going to /entry/$entryDt from sharing intent.");
-        _router.push("/entry/$entryDt");
+        _appRouter.push(EntryEditorRoute(dt: entryDt));
       } catch (err, stackTrace) {
         logger.e("$err: $stackTrace", stackTrace: stackTrace);
       }
@@ -97,10 +84,12 @@ class _MainTreeState extends State<MainTree> {
       child: DynamicColorBuilder(
         builder: (light, dark) => KeyboardProvider(
           child: MaterialApp.router(
-            routerConfig: _router,
+            routerConfig: _appRouter.config(),
             theme: ThemeData(
               colorScheme:
                   light ?? ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+              scaffoldBackgroundColor: light?.surface,
+              canvasColor: light?.surface,
             ),
             darkTheme: ThemeData(
               colorScheme:
@@ -109,6 +98,8 @@ class _MainTreeState extends State<MainTree> {
                     seedColor: Colors.deepPurple,
                     brightness: Brightness.dark,
                   ),
+              scaffoldBackgroundColor: dark?.surface,
+              canvasColor: dark?.surface,
             ),
           ),
         ),

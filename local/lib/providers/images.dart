@@ -10,7 +10,7 @@ part "images.g.dart";
 
 @riverpod
 Future<List<ImageData>> images(Ref ref, DateTime entryDt) async {
-  final asyncValue = ref.watch(entryProvider(entryDt.toString()));
+  final asyncValue = ref.watch(entryProvider(entryDt));
   final entry = asyncValue.asData?.value;
   if (entry == null) {
     return [];

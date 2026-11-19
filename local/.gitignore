@@ -6,6 +6,7 @@ build
 flutter_*.log
 .flutter-plugins-dependencies
 lib/**/*.g.dart
+lib/**/*.gr.dart
 test/**/*.mocks.dart
 devtools_options.yaml
 local.properties

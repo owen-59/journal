@@ -1,11 +1,12 @@
+import "package:auto_route/auto_route.dart";
 import "package:flutter/material.dart";
 import "package:flutter_keyboard_controller/flutter_keyboard_controller.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
-import "package:go_router/go_router.dart";
 import "package:image_picker/image_picker.dart";
 import "package:local_journal/models/entry.dart";
 import "package:local_journal/logger.dart";
 import "package:local_journal/providers/entry.dart";
+import "package:local_journal/router.gr.dart";
 import "package:local_journal/utils/exif.dart";
 import "package:local_journal/utils/location.dart";
 import "package:local_journal/widgets/confirm_dialogue.dart";
@@ -17,23 +18,24 @@ import "package:local_journal/widgets/tags_editor.dart";
 import "package:local_journal/widgets/text_input.dialogue.dart";
 import "package:markdown_editor_live/markdown_editor_live.dart";
 
-class EntryEditor extends ConsumerStatefulWidget {
-  final String entryDateString;
-  const EntryEditor({super.key, required this.entryDateString});
+@RoutePage()
+class EntryEditorPage extends ConsumerStatefulWidget {
+  final DateTime dt;
+  const EntryEditorPage({super.key, required this.dt});
 
   @override
-  ConsumerState<EntryEditor> createState() => _EntryEditorState();
+  ConsumerState<EntryEditorPage> createState() => _EntryEditorState();
 }
 
-class _EntryEditorState extends ConsumerState<EntryEditor> {
+class _EntryEditorState extends ConsumerState<EntryEditorPage> {
   String body = "";
   bool hasBeenEdited = false;
 
   @override
   Widget build(BuildContext context) {
-    final entry = ref.watch(entryProvider(widget.entryDateString));
+    final entry = ref.watch(entryProvider(widget.dt));
 
-    ref.listen(entryProvider(widget.entryDateString), (prev, next) {
+    ref.listen(entryProvider(widget.dt), (prev, next) {
       next.whenOrNull(data: (data) => body = data.body);
     });
 
@@ -146,9 +148,7 @@ class _EntryEditorState extends ConsumerState<EntryEditor> {
 
   void onGoBack(bool didPop, BuildContext context, Object? popObject) {
     if (!didPop || popObject == "DO_NOT_WRITE" || !hasBeenEdited) return;
-    ref
-        .read(entryProvider(widget.entryDateString).notifier)
-        .writeWith(body: body);
+    ref.read(entryProvider(widget.dt).notifier).writeWith(body: body);
   }
 
   Future<void> setDatetime(
@@ -157,11 +157,11 @@ class _EntryEditorState extends ConsumerState<EntryEditor> {
     BuildContext context,
   ) async {
     final newEntry = await ref
-        .read(entryProvider(widget.entryDateString).notifier)
+        .read(entryProvider(widget.dt).notifier)
         .writeWith(body: getCurrentContents(entry), datetime: datetime);
 
     if (context.mounted) {
-      context.replace("/entry/${newEntry.datetime}");
+      context.replaceRoute(EntryEditorRoute(dt: newEntry.datetime));
     } else {
       logger.w("Updating time took too long, context unmounted.");
     }
@@ -212,7 +212,7 @@ class _EntryEditorState extends ConsumerState<EntryEditor> {
       return;
     }
     await ref
-        .read(entryProvider(widget.entryDateString).notifier)
+        .read(entryProvider(widget.dt).notifier)
         .writeWith(body: getCurrentContents(entry), tags: tags);
   }
 
@@ -229,7 +229,7 @@ class _EntryEditorState extends ConsumerState<EntryEditor> {
     );
 
     if (result == true) {
-      ref.read(entryProvider(widget.entryDateString).notifier).delete();
+      ref.read(entryProvider(widget.dt).notifier).delete();
       if (context.mounted) context.pop("DO_NOT_WRITE");
     }
   }
@@ -266,20 +266,18 @@ class _EntryEditorState extends ConsumerState<EntryEditor> {
 
       if (shouldUseImageDt) {
         final newEntry = await ref
-            .read(entryProvider(widget.entryDateString).notifier)
+            .read(entryProvider(widget.dt).notifier)
             .writeWith(datetime: imageDt, body: getCurrentContents(entry));
         await ref
-            .read(entryProvider(newEntry.datetime.toString()).notifier)
+            .read(entryProvider(newEntry.datetime).notifier)
             .addImage(bytes, name, image.path);
-        await ref
-            .read(entryProvider(newEntry.datetime.toString()).notifier)
-            .writeWith();
+        await ref.read(entryProvider(newEntry.datetime).notifier).writeWith();
         if (context.mounted) {
-          context.replace("/entry/${newEntry.datetime}");
+          context.replaceRoute(EntryEditorRoute(dt: newEntry.datetime));
         }
       } else {
         await ref
-            .read(entryProvider(widget.entryDateString).notifier)
+            .read(entryProvider(widget.dt).notifier)
             .addImage(bytes, name, image.path);
       }
     }
@@ -287,9 +285,7 @@ class _EntryEditorState extends ConsumerState<EntryEditor> {
 
   Future<void> onRemoveImageLink(Entry entry, String imageData) async {
     logger.i("Removing $imageData");
-    await ref
-        .read(entryProvider(widget.entryDateString).notifier)
-        .removeImage(imageData);
+    await ref.read(entryProvider(widget.dt).notifier).removeImage(imageData);
   }
 
   Future<void> onSetLocationClicked(BuildContext context, Entry entry) async {
@@ -300,7 +296,7 @@ class _EntryEditorState extends ConsumerState<EntryEditor> {
 
     if (location == null) return;
     await ref
-        .read(entryProvider(widget.entryDateString).notifier)
+        .read(entryProvider(widget.dt).notifier)
         .writeWith(body: getCurrentContents(entry), location: location);
   }
 
