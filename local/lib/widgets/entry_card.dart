@@ -1,10 +1,11 @@
+import "package:auto_route/auto_route.dart";
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
-import "package:go_router/go_router.dart";
 import "package:intl/intl.dart";
 import "package:local_journal/providers/entry.dart";
 import "package:local_journal/providers/entry_main_image.dart";
 import "package:local_journal/providers/image.dart";
+import "package:local_journal/router.gr.dart";
 import "package:local_journal/widgets/entry_card_template.dart";
 import "package:local_journal/widgets/error_card.dart";
 import "package:substring_highlight/substring_highlight.dart";
@@ -16,12 +17,12 @@ class EntryCard extends ConsumerWidget {
   const EntryCard({super.key, required this.entryDt, this.searchText});
 
   void _redirectToEntry(BuildContext context) {
-    context.push("/entry/$entryDt");
+    context.pushRoute(EntryEditorRoute(dt: entryDt));
   }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final entry = ref.watch(entryProvider(entryDt.toString()));
+    final entry = ref.watch(entryProvider(entryDt));
     final image = ref.watch(
       entryMainImageProvider(entryDt, QualityLevel.thumbnailLarge),
     );

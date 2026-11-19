@@ -14,27 +14,15 @@ part "entry.g.dart";
 
 @riverpod
 class EntryNotifier extends _$EntryNotifier {
-  Future<DateTime> getDatetime() async {
-    final datetime = DateTime.tryParse(datetimeString);
-    if (datetime == null) {
-      logger.w(
-        "Tried to load an entry with an invalid datetime: $datetimeString",
-      );
-      throw Exception("\"$datetimeString\" is not a valid entry identifier.");
-    }
-    return datetime;
-  }
-
   @override
-  Future<Entry> build(String datetimeString) async {
-    logger.d("Loading entry $datetimeString");
+  Future<Entry> build(DateTime dt) async {
+    logger.d("Loading entry $dt");
     final rootFolder = ref.watch(folderUriProvider);
     final database = ref.watch(appDatabaseProvider);
     final saf = ref.watch(safProvider);
     final safStream = ref.watch(safStreamProvider);
-    final datetime = await getDatetime();
 
-    final path = pathFromDatetime(datetime);
+    final path = pathFromDatetime(dt);
     final content = await readFile(rootFolder.toString(), path, saf, safStream);
 
     if (content == null) {
@@ -43,7 +31,7 @@ class EntryNotifier extends _$EntryNotifier {
     }
 
     final entry = await Entry.read(
-      datetimeString,
+      dt.toString(), // todo accept DateTime
       rootFolder.toString(),
       saf,
       safStream,

@@ -11,7 +11,7 @@ Future<Uint8List?> entryMainImage(
   DateTime dt,
   QualityLevel quality,
 ) async {
-  final entry = await ref.watch(entryProvider(dt.toString()).future);
+  final entry = await ref.watch(entryProvider(dt).future);
   final firstImage = entry.images.elementAtOrNull(0);
   if (firstImage == null) return null;
 
