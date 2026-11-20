@@ -13,7 +13,6 @@ import "package:local_journal/widgets/confirm_dialogue.dart";
 import "package:local_journal/widgets/error_card.dart";
 import "package:local_journal/widgets/images_list.dart";
 import "package:local_journal/widgets/location_card.dart";
-import "package:local_journal/widgets/location_editor/location_editor.dart";
 import "package:local_journal/widgets/tags_editor.dart";
 import "package:local_journal/widgets/text_input.dialogue.dart";
 import "package:markdown_editor_live/markdown_editor_live.dart";
@@ -289,10 +288,7 @@ class _EntryEditorState extends ConsumerState<EntryEditorPage> {
   }
 
   Future<void> onSetLocationClicked(BuildContext context, Entry entry) async {
-    final location = await Navigator.push<Location>(
-      context,
-      MaterialPageRoute(builder: (_) => const LocationEditor()),
-    );
+    final location = await context.pushRoute<Location>(LocationEditorRoute());
 
     if (location == null) return;
     await ref
