@@ -8,6 +8,7 @@ import "package:local_journal/widgets/sliver_entry_list.dart";
 import "package:local_journal/widgets/measure/entry_card.dart";
 import "package:local_journal/widgets/measure/entry_separator_with_text.dart";
 import "package:local_journal/widgets/measure/entry_separator_without_text.dart";
+import "package:local_journal/widgets/tags_editor.dart";
 
 class SearchPage extends ConsumerStatefulWidget {
   const SearchPage({super.key});
@@ -25,10 +26,13 @@ class _SearchPageState extends ConsumerState<SearchPage> {
   var query = "";
   var timer = Timer(const Duration(), () {});
   var isReversed = true;
+  List<String> selectedTags = [];
 
   @override
   Widget build(BuildContext context) {
-    final searchResults = ref.watch(searchProvider(rateLimitedQuery));
+    final searchResults = ref.watch(
+      searchProvider((query: rateLimitedQuery, tags: selectedTags)),
+    );
 
     return Scaffold(
       appBar: AppBar(
@@ -65,6 +69,35 @@ class _SearchPageState extends ConsumerState<SearchPage> {
                       }),
                       autofocus: true,
                       textInputAction: TextInputAction.search,
+                    ),
+                  ),
+                ),
+                SliverPadding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                  sliver: SliverToBoxAdapter(
+                    child: Row(
+                      children: [
+                        InputChip(
+                          avatar: const Icon(Icons.arrow_drop_down),
+                          onPressed: () async {
+                            final tags =
+                                await showModalBottomSheet<List<String>>(
+                                  context: context,
+                                  isScrollControlled: true,
+                                  builder: (_) =>
+                                      TagsEditor(initialTags: selectedTags),
+                                );
+                            if (tags == null) return;
+                            setState(() => selectedTags = tags);
+                          },
+                          label: Text(switch (selectedTags.length) {
+                            0 => "Tags",
+                            1 => selectedTags[0],
+                            _ =>
+                              "${selectedTags[0]} + ${selectedTags.length - 1}",
+                          }),
+                        ),
+                      ],
                     ),
                   ),
                 ),
