@@ -2,11 +2,11 @@ import "package:auto_route/auto_route.dart";
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:local_journal/logger.dart";
+import "package:local_journal/pages/entry_list.dart";
 import "package:local_journal/pages/search.dart";
 import "package:local_journal/providers/cache_entries.dart";
 import "package:local_journal/providers/entry_list.dart";
 import "package:local_journal/router.gr.dart";
-import "package:local_journal/widgets/entry_list.dart" as wid;
 
 @RoutePage()
 class HomePage extends ConsumerStatefulWidget {
@@ -18,7 +18,7 @@ class HomePage extends ConsumerStatefulWidget {
 
 class _HomeScreenState extends ConsumerState<HomePage> {
   final _pageController = PageController();
-  final GlobalKey<wid.EntryListState> _entryListKey = GlobalKey();
+  final GlobalKey<EntryListState> _entryListKey = GlobalKey();
 
   @override
   void dispose() {
