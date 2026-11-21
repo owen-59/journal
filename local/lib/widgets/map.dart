@@ -1,5 +1,6 @@
 import "dart:async";
 
+import "package:auto_route/annotations.dart";
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:local_journal/logger.dart";
@@ -8,6 +9,7 @@ import "package:maplibre_gl/maplibre_gl.dart";
 import "package:permission_handler/permission_handler.dart";
 import "package:url_launcher/link.dart";
 
+@RoutePage()
 class MapPage extends ConsumerStatefulWidget {
   const MapPage({super.key});
 

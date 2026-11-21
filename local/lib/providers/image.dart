@@ -1,6 +1,7 @@
 import "dart:io";
 
 import "package:flutter/services.dart";
+import "package:local_journal/data_folder.dart";
 import "package:local_journal/logger.dart";
 import "package:local_journal/main.dart";
 import "package:local_journal/utils/file.dart";
@@ -32,7 +33,7 @@ class ImageNotifier extends _$ImageNotifier {
   }
 
   Future<Uint8List?> loadOriginal() async {
-    final rootFolder = ref.watch(folderUriProvider).toString();
+    final rootFolder = DataFolder().getFolder();
     final saf = ref.watch(safProvider);
     final safStream = ref.watch(safStreamProvider);
     final imagePath = getImagePath(dt, name);

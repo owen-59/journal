@@ -6,9 +6,7 @@ import "package:local_journal/pages/search.dart";
 import "package:local_journal/providers/cache_entries.dart";
 import "package:local_journal/providers/entry_list.dart";
 import "package:local_journal/router.gr.dart";
-import "package:local_journal/widgets/calendar_view.dart";
 import "package:local_journal/widgets/entry_list.dart" as wid;
-import "package:local_journal/widgets/map.dart";
 
 @RoutePage()
 class HomePage extends ConsumerStatefulWidget {
@@ -19,25 +17,8 @@ class HomePage extends ConsumerStatefulWidget {
 }
 
 class _HomeScreenState extends ConsumerState<HomePage> {
-  int _currentPageIndex = 0;
   final _pageController = PageController();
   final GlobalKey<wid.EntryListState> _entryListKey = GlobalKey();
-
-  late final List<Widget> _screens = [
-    wid.EntryList(key: _entryListKey),
-    MapPage(),
-    CalendarView(
-      goToDate: (dt) {
-        setState(() => _currentPageIndex = 0);
-        _entryListKey.currentState?.jumpToDate(dt);
-        _pageController.animateToPage(
-          0,
-          duration: const Duration(milliseconds: 300),
-          curve: Curves.easeInOut,
-        );
-      },
-    ),
-  ];
 
   @override
   void dispose() {
@@ -47,67 +28,74 @@ class _HomeScreenState extends ConsumerState<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("Journal"),
-        actions: [
-          ?switch (_currentPageIndex) {
-            0 => IconButton(
-              icon: Icon(Icons.calendar_month),
-              onPressed: () => onDateClicked(context, ref),
-            ),
-            1 || 2 => IconButton(
-              icon: Icon(Icons.refresh),
-              onPressed: () {
-                ref.invalidate(cacheEntriesProvider);
-              },
-            ),
-            _ => null,
+    return AutoTabsRouter(
+      routes: [
+        EntryListRoute(key: _entryListKey),
+        MapRoute(),
+        CalendarRoute(
+          goToDate: (dt, BuildContext context) {
+            final tabsRouter = AutoTabsRouter.of(context);
+            tabsRouter.setActiveIndex(0);
+
+            WidgetsBinding.instance.addPostFrameCallback((_) {
+              _entryListKey.currentState?.jumpToDate(dt);
+            });
           },
-          IconButton(
-            icon: Icon(Icons.search),
-            onPressed: () => Navigator.push(
-              context,
-              MaterialPageRoute(builder: (_) => SearchPage()),
-            ),
-          ),
-        ],
-      ),
-      bottomNavigationBar: NavigationBar(
-        selectedIndex: _currentPageIndex,
-        onDestinationSelected: (int index) {
-          _pageController.animateToPage(
-            index,
-            duration: const Duration(milliseconds: 300),
-            curve: Curves.easeInOut,
-          );
-          setState(() {
-            _currentPageIndex = index;
-          });
-        },
-        destinations: [
-          NavigationDestination(icon: Icon(Icons.home), label: "Home"),
-          NavigationDestination(icon: Icon(Icons.map), label: "Map"),
-          NavigationDestination(
-            icon: Icon(Icons.calendar_today),
-            label: "Calendar",
-          ),
-        ],
-      ),
-      floatingActionButton: _currentPageIndex == 0
-          ? FloatingActionButton(
-              onPressed: () => createEntry(context, ref),
-              child: const Icon(Icons.create),
-            )
-          : null,
-      body: DefaultTabController(
-        length: 3,
-        child: PageView(
-          physics: const NeverScrollableScrollPhysics(),
-          controller: _pageController,
-          children: _screens,
         ),
-      ),
+      ],
+      builder: (context, child) {
+        final tabsRouter = AutoTabsRouter.of(context);
+
+        return Scaffold(
+          body: child,
+          appBar: AppBar(
+            title: Text("Journal"),
+            actions: [
+              ?switch (tabsRouter.activeIndex) {
+                0 => IconButton(
+                  icon: Icon(Icons.calendar_month),
+                  onPressed: () => onDateClicked(context, ref),
+                ),
+                1 || 2 => IconButton(
+                  icon: Icon(Icons.refresh),
+                  onPressed: () {
+                    ref.invalidate(cacheEntriesProvider);
+                  },
+                ),
+                _ => null,
+              },
+              IconButton(
+                icon: Icon(Icons.search),
+                onPressed: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (_) => SearchPage()),
+                ),
+              ),
+            ],
+          ),
+          bottomNavigationBar: NavigationBar(
+            selectedIndex: tabsRouter.activeIndex,
+            onDestinationSelected: (index) => tabsRouter.setActiveIndex(index),
+            destinations: [
+              NavigationDestination(
+                icon: const Icon(Icons.home),
+                label: "Home",
+              ),
+              NavigationDestination(icon: const Icon(Icons.map), label: "Map"),
+              NavigationDestination(
+                icon: const Icon(Icons.calendar_month),
+                label: "Calendar",
+              ),
+            ],
+          ),
+          floatingActionButton: tabsRouter.activeIndex == 0
+              ? FloatingActionButton(
+                  onPressed: () => createEntry(context, ref),
+                  child: const Icon(Icons.create),
+                )
+              : null,
+        );
+      },
     );
   }
 

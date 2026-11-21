@@ -1,3 +1,4 @@
+import "package:auto_route/auto_route.dart";
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:intl/intl.dart";
@@ -10,15 +11,16 @@ double getGridLineHeight(BuildContext context) {
   return MediaQuery.sizeOf(context).width / 7;
 }
 
-class CalendarView extends ConsumerStatefulWidget {
-  const CalendarView({super.key, required this.goToDate});
-  final void Function(DateTime) goToDate;
+@RoutePage()
+class CalendarPage extends ConsumerStatefulWidget {
+  const CalendarPage({super.key, required this.goToDate});
+  final void Function(DateTime, BuildContext) goToDate;
 
   @override
-  ConsumerState<CalendarView> createState() => _CalendarViewState();
+  ConsumerState<CalendarPage> createState() => _CalendarViewState();
 }
 
-class _CalendarViewState extends ConsumerState<CalendarView> {
+class _CalendarViewState extends ConsumerState<CalendarPage> {
   final _centerKey = const ValueKey<String>("center-sliver-key");
   final _currentDt = DateTime.now();
 
@@ -48,7 +50,7 @@ class _CalendarViewState extends ConsumerState<CalendarView> {
                 return MonthSectionWidget(
                   key: ValueKey(month),
                   month: month,
-                  goToDate: widget.goToDate,
+                  goToDate: (dt) => widget.goToDate(dt, context),
                 );
               },
               itemExtentBuilder: (index, _) => _getHeightForIndex(-index - 1),
@@ -60,7 +62,7 @@ class _CalendarViewState extends ConsumerState<CalendarView> {
                 return MonthSectionWidget(
                   key: ValueKey(month),
                   month: month,
-                  goToDate: widget.goToDate,
+                  goToDate: (dt) => widget.goToDate(dt, context),
                 );
               },
               itemExtentBuilder: (index, _) => _getHeightForIndex(index),

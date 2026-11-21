@@ -1,5 +1,6 @@
 import "dart:typed_data";
 
+import "package:local_journal/data_folder.dart";
 import "package:local_journal/database.dart";
 import "package:local_journal/models/entry.dart";
 import "package:local_journal/logger.dart";
@@ -17,17 +18,17 @@ class EntryNotifier extends _$EntryNotifier {
   @override
   Future<Entry> build(DateTime dt) async {
     logger.d("Loading entry $dt");
-    final rootFolder = ref.watch(folderUriProvider);
+    final rootFolder = DataFolder().getFolder();
     final database = ref.watch(appDatabaseProvider);
     final saf = ref.watch(safProvider);
     final safStream = ref.watch(safStreamProvider);
 
     final path = pathFromDatetime(dt);
-    final content = await readFile(rootFolder.toString(), path, saf, safStream);
+    final content = await readFile(rootFolder, path, saf, safStream);
 
     if (content == null) {
-      logger.w("Couldn't load the requested entry.");
-      throw Exception("Couldn't find the entry.");
+      logger.w("Couldn't load $dt.");
+      throw Exception("Couldn't load $dt.");
     }
 
     final entry = await Entry.read(
@@ -53,7 +54,7 @@ class EntryNotifier extends _$EntryNotifier {
     Location? location,
   }) async {
     final current = state.asData?.value;
-    final rootFolder = ref.watch(folderUriProvider).toString();
+    final rootFolder = DataFolder().getFolder();
     final saf = ref.watch(safProvider);
     final safStream = ref.watch(safStreamProvider);
     final database = ref.watch(appDatabaseProvider);
@@ -93,7 +94,7 @@ class EntryNotifier extends _$EntryNotifier {
 
   Future<void> delete() async {
     final current = state.asData?.value;
-    final rootFolder = ref.watch(folderUriProvider).toString();
+    final rootFolder = DataFolder().getFolder();
     final saf = ref.watch(safProvider);
     final safStream = ref.watch(safStreamProvider);
     if (current == null) {
@@ -109,7 +110,7 @@ class EntryNotifier extends _$EntryNotifier {
     final safStream = ref.watch(safStreamProvider);
     final keepAliveLink = ref.keepAlive();
     try {
-      final rootFolder = ref.watch(folderUriProvider).toString();
+      final rootFolder = DataFolder().getFolder();
       final current = await future;
 
       final newEntry = await current.addImage(
@@ -130,7 +131,7 @@ class EntryNotifier extends _$EntryNotifier {
     final saf = ref.watch(safProvider);
     final safStream = ref.watch(safStreamProvider);
     final current = state.asData?.value;
-    final rootFolder = ref.watch(folderUriProvider).toString();
+    final rootFolder = DataFolder().getFolder();
     if (current == null) {
       logger.w("Tried to add image when the entry provider was busy.");
       throw Exception("Tried to update entry when the provider was busy.");

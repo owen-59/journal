@@ -1,6 +1,7 @@
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:flutter_test/flutter_test.dart";
+import "package:local_journal/data_folder.dart";
 import "package:local_journal/database.dart";
 import "package:local_journal/main.dart";
 import "package:local_journal/models/entry.dart";
@@ -18,10 +19,11 @@ Future<void> _setupTests(WidgetTester tester) async {
   tester.view.physicalSize = Size(400, 800);
   final dbClient = MockDatabaseClient();
 
+  DataFolder().setFolder("FOLDER_URI");
+
   await tester.pumpWidget(
     ProviderScope(
       overrides: [
-        folderUriProvider.overrideWithValue(Uri.parse("FOLDER_URI")),
         appDatabaseProvider.overrideWithValue(dbClient),
         entryProvider.overrideWithBuild(
           (_, _) => Entry(

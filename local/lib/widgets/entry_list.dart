@@ -1,5 +1,6 @@
 import "dart:math";
 
+import "package:auto_route/auto_route.dart";
 import "package:collection/collection.dart";
 import "package:flutter/material.dart";
 import "package:flutter/rendering.dart";
@@ -11,14 +12,16 @@ import "package:local_journal/widgets/measure/entry_separator_with_text.dart";
 import "package:local_journal/widgets/measure/entry_separator_without_text.dart";
 import "package:local_journal/widgets/sliver_entry_list.dart";
 
-class EntryList extends ConsumerStatefulWidget {
-  const EntryList({super.key});
+@RoutePage()
+class EntryListPage extends ConsumerStatefulWidget {
+  final Null dummyValueSoKeyExists;
+  const EntryListPage({super.key, this.dummyValueSoKeyExists});
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() => EntryListState();
 }
 
-class EntryListState extends ConsumerState<EntryList>
+class EntryListState extends ConsumerState<EntryListPage>
     with AutomaticKeepAliveClientMixin {
   @override
   bool get wantKeepAlive => true;
@@ -133,7 +136,9 @@ class EntryListState extends ConsumerState<EntryList>
       final scrollPixels =
           totalTextSeparatorHeight + totalSeparatorHeight + totalEntryHeight;
 
-      _scrollController.jumpTo(scrollPixels);
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        _scrollController.jumpTo(scrollPixels);
+      });
     });
   }
 }

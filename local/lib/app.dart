@@ -5,40 +5,34 @@ import "package:dynamic_color/dynamic_color.dart";
 import "package:flutter/material.dart";
 import "package:flutter_keyboard_controller/flutter_keyboard_controller.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
-import "package:local_journal/database.dart";
 import "package:local_journal/logger.dart";
-import "package:local_journal/main.dart";
 import "package:local_journal/providers/entry_list.dart";
 import "package:local_journal/router.dart";
 import "package:local_journal/router.gr.dart";
-import "package:local_journal/worker.dart";
 import "package:share_handler/share_handler.dart";
 
 final GlobalKey _providerScopeKey = GlobalKey();
 
-class MainTree extends StatefulWidget {
-  final Uri folderUri;
-  final AppDatabase database;
-  final WorkerManager workerManager;
-  const MainTree({
-    super.key,
-    required this.folderUri,
-    required this.database,
-    required this.workerManager,
-  });
+class App extends ConsumerStatefulWidget {
+  const App({super.key});
 
   @override
-  State<MainTree> createState() => _MainTreeState();
+  ConsumerState<App> createState() => _AppState();
 }
 
-class _MainTreeState extends State<MainTree> {
-  final _appRouter = AppRouter();
+class _AppState extends ConsumerState<App> {
+  late final _appRouter = AppRouter(ref: ref);
   late final ProviderContainer _providerContainer;
 
   @override
   void initState() {
     super.initState();
     _initSharingIntent();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
     _initProviderContainer();
   }
 
@@ -52,11 +46,7 @@ class _MainTreeState extends State<MainTree> {
 
   void _initProviderContainer() {
     _providerContainer = ProviderContainer(
-      overrides: [
-        folderUriProvider.overrideWithValue(widget.folderUri),
-        appDatabaseProvider.overrideWithValue(widget.database),
-        workerManagerProvider.overrideWithValue(widget.workerManager),
-      ],
+      parent: ProviderScope.containerOf(context),
       retry: (_, _) => null,
     );
   }

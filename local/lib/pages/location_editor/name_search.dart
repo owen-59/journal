@@ -1,19 +1,21 @@
 import "dart:async";
 
+import "package:auto_route/auto_route.dart";
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:local_journal/providers/osm_search.dart";
 import "package:local_journal/utils/location.dart";
 
-class NameSearch extends ConsumerStatefulWidget {
+@RoutePage()
+class NameSearchPage extends ConsumerStatefulWidget {
   final void Function(Location) onLocationPicked;
-  const NameSearch({super.key, required this.onLocationPicked});
+  const NameSearchPage({super.key, required this.onLocationPicked});
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() => _NameSearchState();
 }
 
-class _NameSearchState extends ConsumerState<NameSearch> {
+class _NameSearchState extends ConsumerState<NameSearchPage> {
   String rateLimitedQuery = "";
   String query = "";
   Timer timer = Timer(const Duration(), () {});

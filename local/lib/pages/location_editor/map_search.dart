@@ -1,3 +1,4 @@
+import "package:auto_route/auto_route.dart";
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:local_journal/logger.dart";
@@ -5,15 +6,16 @@ import "package:local_journal/providers/osm_reverse_geocode.dart";
 import "package:local_journal/utils/location.dart";
 import "package:maplibre_gl/maplibre_gl.dart";
 
-class MapSearch extends ConsumerStatefulWidget {
+@RoutePage()
+class MapSearchPage extends ConsumerStatefulWidget {
   final void Function(Location) onLocationPicked;
-  const MapSearch({super.key, required this.onLocationPicked});
+  const MapSearchPage({super.key, required this.onLocationPicked});
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() => _MapSearchState();
 }
 
-class _MapSearchState extends ConsumerState<MapSearch> {
+class _MapSearchState extends ConsumerState<MapSearchPage> {
   LatLng? _lastClicked;
 
   @override

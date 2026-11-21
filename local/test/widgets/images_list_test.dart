@@ -1,6 +1,7 @@
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:flutter_test/flutter_test.dart";
+import "package:local_journal/data_folder.dart";
 import "package:local_journal/database.dart";
 import "package:local_journal/main.dart";
 import "package:local_journal/widgets/image_view.dart";
@@ -16,10 +17,10 @@ import "calendar_view_test.mocks.dart";
 void main() {
   group("ImagesList", () {
     testWidgets("Renders the correct amount of images.", (tester) async {
+      DataFolder().setFolder("FOLDER_URI");
       await tester.pumpWidget(
         ProviderScope(
           overrides: [
-            folderUriProvider.overrideWithValue(Uri.parse("")),
             appDatabaseProvider.overrideWithValue(MockDatabaseClient()),
           ],
           child: MaterialApp(
