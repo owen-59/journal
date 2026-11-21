@@ -14,7 +14,6 @@ import "package:share_handler/share_handler.dart";
 final GlobalKey _providerScopeKey = GlobalKey();
 
 class App extends ConsumerStatefulWidget {
-
   const App({super.key});
 
   @override

@@ -8,11 +8,8 @@ class FolderSelectionPage extends StatelessWidget {
   final Saf saf;
   final void Function(String) onGranted;
 
-  FolderSelectionPage({
-    super.key,
-    required this.onGranted,
-    Saf? saf
-  }) : saf = saf ?? Saf();
+  FolderSelectionPage({super.key, required this.onGranted, Saf? saf})
+    : saf = saf ?? Saf();
 
   Future<void> _requestFolder(BuildContext context) async {
     try {

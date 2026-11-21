@@ -6,12 +6,12 @@ base class RiverpodErrorLoggerObserver extends ProviderObserver {
   void providerDidFail(
     ProviderObserverContext context,
     Object error,
-    StackTrace stackTrace
+    StackTrace stackTrace,
   ) {
     logger.e(
       "Provider ${context.provider.name ?? context.provider.runtimeType} failed.",
       error: error,
-      stackTrace: stackTrace
+      stackTrace: stackTrace,
     );
   }
 }

@@ -35,12 +35,10 @@ void main() async {
 
   runApp(
     ProviderScope(
-      observers: [
-        RiverpodErrorLoggerObserver()
-      ],
+      observers: [RiverpodErrorLoggerObserver()],
       overrides: [
         appDatabaseProvider.overrideWithValue(database),
-        workerManagerProvider.overrideWithValue(workerManager)
+        workerManagerProvider.overrideWithValue(workerManager),
       ],
       retry: (_, _) => null,
       child: App(),

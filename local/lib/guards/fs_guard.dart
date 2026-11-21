@@ -9,18 +9,23 @@ class FsGuard extends AutoRouteGuard {
   FsGuard({required this.ref});
 
   @override
-  Future<void> onNavigation(NavigationResolver resolver, StackRouter router) async {
+  Future<void> onNavigation(
+    NavigationResolver resolver,
+    StackRouter router,
+  ) async {
     final fsSetup = await ref.read(fsSetupProvider.future);
 
     if (fsSetup || resolver.routeName == FolderSelectionRoute.name) {
       resolver.next();
     } else {
-      resolver.redirectUntil(FolderSelectionRoute(
-        onGranted: (uri) {
-          ref.read(fsSetupProvider.notifier).setUri(uri);
-          resolver.next();
-        }
-      ));
+      resolver.redirectUntil(
+        FolderSelectionRoute(
+          onGranted: (uri) {
+            ref.read(fsSetupProvider.notifier).setUri(uri);
+            resolver.next();
+          },
+        ),
+      );
     }
   }
 }

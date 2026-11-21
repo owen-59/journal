@@ -17,13 +17,17 @@ class FsSetup extends _$FsSetup {
 
     final permissions = await saf.persistedPermissions();
     if (permissions.isEmpty) return false;
-    final matchingPermissions = permissions.where((permission) => cachedUri?.startsWith(permission.uri) ?? false).toList();
+    final matchingPermissions = permissions
+        .where((permission) => cachedUri?.startsWith(permission.uri) ?? false)
+        .toList();
     if (matchingPermissions.isNotEmpty) {
       DataFolder().setFolder(matchingPermissions[0].uri);
       logger.i("fsSetup: true and uri was set.");
       return true;
     }
-    logger.w("Permissions was not empty, but no permissions matched $cachedUri: $permissions");
+    logger.w(
+      "Permissions was not empty, but no permissions matched $cachedUri: $permissions",
+    );
 
     return false;
   }

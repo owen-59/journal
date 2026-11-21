@@ -20,4 +20,3 @@ class DataFolder {
     throw Exception("Accessed folderUri before uri was set.");
   }
 }
-

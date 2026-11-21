@@ -39,7 +39,5 @@ class AppRouter extends RootStackRouter {
   ];
 
   @override
-  late final List<AutoRouteGuard> guards = [
-    FsGuard(ref: ref)
-  ];
+  late final List<AutoRouteGuard> guards = [FsGuard(ref: ref)];
 }

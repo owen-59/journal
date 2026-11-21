@@ -21,7 +21,6 @@ Future<void> _setupTests(WidgetTester tester) async {
 
   DataFolder().setFolder("FOLDER_URI");
 
-
   await tester.pumpWidget(
     ProviderScope(
       overrides: [
