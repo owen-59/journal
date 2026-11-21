@@ -1,8 +1,14 @@
 import "package:auto_route/auto_route.dart";
+import "package:flutter_riverpod/flutter_riverpod.dart";
+import "package:local_journal/guards/fs_guard.dart";
 import "package:local_journal/router.gr.dart";
 
 @AutoRouterConfig(replaceInRouteName: "Page,Route")
 class AppRouter extends RootStackRouter {
+  final WidgetRef ref;
+
+  AppRouter({required this.ref});
+
   @override
   RouteType get defaultRouteType => RouteType.custom(
     transitionsBuilder: TransitionsBuilders.slideLeftWithFade,
@@ -12,6 +18,7 @@ class AppRouter extends RootStackRouter {
 
   @override
   List<AutoRoute> get routes => [
+    AutoRoute(page: FolderSelectionRoute.page),
     AutoRoute(
       page: HomeRoute.page,
       initial: true,
@@ -29,5 +36,10 @@ class AppRouter extends RootStackRouter {
         AutoRoute(page: NameSearchRoute.page),
       ],
     ),
+  ];
+
+  @override
+  late final List<AutoRouteGuard> guards = [
+    FsGuard(ref: ref)
   ];
 }

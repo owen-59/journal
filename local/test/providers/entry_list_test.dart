@@ -2,6 +2,7 @@ import "package:collection/collection.dart";
 import "package:drift/native.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:flutter_test/flutter_test.dart";
+import "package:local_journal/data_folder.dart";
 import "package:mockito/annotations.dart";
 import "package:mockito/mockito.dart";
 import "package:saf/saf.dart";
@@ -20,12 +21,13 @@ void main() {
 
     when(safClient.list(folderUri.toString())).thenAnswer((_) async => []);
 
+    DataFolder().setFolder(folderUri.toString());
+
     final container = ProviderContainer.test(
       overrides: [
         appDatabaseProvider.overrideWithValue(
           AppDatabase.forTesting(NativeDatabase.memory()),
         ),
-        folderUriProvider.overrideWithValue(folderUri),
         safProvider.overrideWithValue(safClient),
       ],
     );

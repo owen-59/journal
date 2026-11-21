@@ -4,6 +4,7 @@ import "dart:ui";
 
 import "package:collection/collection.dart";
 import "package:intl/intl.dart";
+import "package:local_journal/data_folder.dart";
 import "package:local_journal/database.dart";
 import "package:local_journal/logger.dart";
 import "package:local_journal/main.dart";
@@ -52,7 +53,7 @@ class EntryList extends _$EntryList {
       if (lastChecked == null ||
           DateTime.now().difference(lastChecked) > cacheTtl) {
         (() async {
-          final rootFolder = ref.read(folderUriProvider).toString();
+          final rootFolder = DataFolder().getFolder();
           final saf = ref.read(safProvider);
           final safStream = ref.read(safStreamProvider);
           final entry = await ref
@@ -105,7 +106,7 @@ class EntryList extends _$EntryList {
       dt = dt.copyWith(minute: dt.minute + 1);
     }
 
-    final rootFolder = ref.read(folderUriProvider);
+    final rootFolder = DataFolder().getFolder();
     final saf = ref.read(safProvider);
     final safStream = ref.read(safStreamProvider);
     final path = pathFromDatetime(dt);
@@ -124,7 +125,8 @@ class EntryList extends _$EntryList {
   Future<void> fullReload() async {
     try {
       logger.i("Doing expensive full entry reload.");
-      final rootFolder = ref.read(folderUriProvider).toString();
+
+      final rootFolder = DataFolder().getFolder();
 
       final saf = ref.read(safProvider);
 

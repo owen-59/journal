@@ -1,25 +1,28 @@
+import "package:auto_route/auto_route.dart";
 import "package:flutter/material.dart";
+import "package:local_journal/logger.dart";
 import "package:saf/saf.dart";
 
+@RoutePage()
 class FolderSelectionPage extends StatelessWidget {
   final Saf saf;
-  final void Function(Uri) onGranted;
+  final void Function(String) onGranted;
 
-  const FolderSelectionPage({
+  FolderSelectionPage({
     super.key,
-    required this.saf,
     required this.onGranted,
-  });
+    Saf? saf
+  }) : saf = saf ?? Saf();
 
   Future<void> _requestFolder(BuildContext context) async {
     try {
       final SafDocumentFile? dir = await saf.pickDirectory();
 
       if (dir != null) {
-        onGranted(Uri.parse(dir.uri));
+        onGranted(dir.uri);
       }
     } catch (e) {
-      // ignore error
+      logger.e("Error when getting a choosing a directory.");
     }
   }
 
