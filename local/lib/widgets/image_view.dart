@@ -82,6 +82,8 @@ class _ImageViewState extends ConsumerState<ImageView> {
         ),
       ),
 
+      AsyncLoading() => const Center(child: CircularProgressIndicator()),
+
       _ => Padding(
         padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
         child: Container(
