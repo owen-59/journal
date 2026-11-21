@@ -3,6 +3,7 @@ import "package:flutter/material.dart";
 import "package:flutter_keyboard_controller/flutter_keyboard_controller.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:image_picker/image_picker.dart";
+import "package:intl/intl.dart";
 import "package:local_journal/models/entry.dart";
 import "package:local_journal/logger.dart";
 import "package:local_journal/providers/entry.dart";
@@ -40,7 +41,9 @@ class _EntryEditorState extends ConsumerState<EntryEditorPage> {
 
     return switch (entry) {
       AsyncData(:final value) => Scaffold(
-        appBar: AppBar(),
+        appBar: AppBar(
+          title: Text(DateFormat("dd MMMM HH:mm").format(widget.dt)),
+        ),
         resizeToAvoidBottomInset: false,
         body: Builder(
           builder: (innerContext) => PopScope(
