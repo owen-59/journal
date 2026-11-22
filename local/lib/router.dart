@@ -26,6 +26,7 @@ class AppRouter extends RootStackRouter {
         AutoRoute(page: EntryListRoute.page),
         AutoRoute(page: MapRoute.page),
         AutoRoute(page: CalendarRoute.page),
+        AutoRoute(page: ExtrasRoute.page),
       ],
     ),
     AutoRoute(page: EntryEditorRoute.page),
@@ -36,6 +37,7 @@ class AppRouter extends RootStackRouter {
         AutoRoute(page: NameSearchRoute.page),
       ],
     ),
+    AutoRoute(page: LocationPresetEditorRoute.page),
   ];
 
   @override

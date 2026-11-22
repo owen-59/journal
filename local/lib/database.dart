@@ -34,14 +34,23 @@ class EntriesCache extends Table {
   Set<Column<Object>> get primaryKey => {createdDate};
 }
 
-@DriftDatabase(tables: [EntriesCache])
+class LocationPresets extends Table {
+  IntColumn get id => integer().autoIncrement()();
+
+  TextColumn get name => text().nullable()();
+  TextColumn get displayName => text().nullable()();
+  Column<double> get longitude => real()();
+  Column<double> get latitude => real()();
+}
+
+@DriftDatabase(tables: [EntriesCache, LocationPresets])
 class AppDatabase extends _$AppDatabase {
   AppDatabase([QueryExecutor? executor]) : super(executor ?? _openConnection());
 
   AppDatabase.forTesting(super.e);
 
   @override
-  int get schemaVersion => 6;
+  int get schemaVersion => 7;
 
   @override
   MigrationStrategy get migration {
@@ -92,6 +101,9 @@ extension Migrations on GeneratedDatabase {
     },
     from5To6: (m, schema) async {
       await m.deleteTable("image_cache");
+    },
+    from6To7: (m, schema) async {
+      await m.createTable(schema.locationPresets);
     },
   );
 }

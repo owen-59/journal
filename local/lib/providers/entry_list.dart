@@ -24,9 +24,8 @@ class EntryList extends _$EntryList {
 
   @override
   Future<List<DateTime>> build() async {
-    fullReload();
-
-    return [];
+    await fullReload();
+    return _state;
   }
 
   bool _isSameDatetime(DateTime a, DateTime b) {
@@ -182,7 +181,7 @@ class EntryList extends _$EntryList {
           }
         }
       }
-      clearStaleEntries(_state);
+      await clearStaleEntries(_state);
       state = AsyncData(_state);
     } catch (err, trace) {
       state = AsyncError(err, trace);
