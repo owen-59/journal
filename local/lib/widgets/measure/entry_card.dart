@@ -15,14 +15,16 @@ class EntryCardMeasurer extends StatelessWidget {
     return Offstage(
       child: ProviderScope(
         overrides: [
-          entryProvider.overrideWithBuild((_,_) => Entry(
-            location: null,
-            images: [],
-            tags: [],
-            datetime: DateTime.now(),
-            body: ""
-          )),
-          entryMainImageProvider.overrideWith((_,_) => null)
+          entryProvider.overrideWithBuild(
+            (_, _) => Entry(
+              location: null,
+              images: [],
+              tags: [],
+              datetime: DateTime.now(),
+              body: "",
+            ),
+          ),
+          entryMainImageProvider.overrideWith((_, _) => null),
         ],
         child: Measured(
           onChanged: (size) => onChanged(size.height),
@@ -36,7 +38,7 @@ class EntryCardMeasurer extends StatelessWidget {
             ),
           ),
         ),
-      )
+      ),
     );
   }
 }
