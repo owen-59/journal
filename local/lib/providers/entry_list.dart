@@ -135,7 +135,6 @@ class EntryList extends _$EntryList {
           .sorted((a, b) => int.parse(b.name) - int.parse(a.name));
 
       for (final year in yearDirs) {
-        if (!ref.mounted) return;
         final yearDt = DateFormat.y().tryParse(year.name);
         if (yearDt == null) {
           logger.w("Skipping ${year.name} because it is not a year.");
@@ -148,7 +147,6 @@ class EntryList extends _$EntryList {
             .sorted((a, b) => int.parse(b.name) - int.parse(a.name));
 
         for (final month in monthDirs) {
-          if (!ref.mounted) return;
           final monthDt = DateFormat.M().tryParse(month.name);
           if (monthDt == null) continue;
 
@@ -158,13 +156,11 @@ class EntryList extends _$EntryList {
               .sorted((a, b) => int.parse(b.name) - int.parse(a.name));
 
           for (final day in dayDirs) {
-            if (!ref.mounted) return;
             final dayDt = DateFormat.d().tryParse(day.name);
             if (dayDt == null) continue;
 
             final files = await saf.list(day.uri);
             for (final file in files) {
-              if (!ref.mounted) return;
               if (file.name.length != 7) continue;
 
               final timeString = file.name.substring(0, 4);
@@ -185,12 +181,9 @@ class EntryList extends _$EntryList {
           }
         }
       }
-      if (!ref.mounted) return;
       await clearStaleEntries(_state);
-      if (!ref.mounted) return;
       state = AsyncData(_state);
     } catch (err, trace) {
-      if (!ref.mounted) return;
       state = AsyncError(err, trace);
     }
   }
@@ -213,14 +206,12 @@ class EntryList extends _$EntryList {
   }
 
   Future<void> clearStaleEntries(List<DateTime> entries) async {
-    if (!ref.mounted) return;
     final database = ref.read(appDatabaseProvider);
 
     await (database.delete(
       database.entriesCache,
     )..where((tbl) => tbl.createdDate.isNotIn(entries))).go();
 
-    if (!ref.mounted) return;
     ref.invalidate(cacheEntriesProvider);
   }
 }
