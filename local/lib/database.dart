@@ -41,9 +41,6 @@ class LocationPresets extends Table {
   TextColumn get displayName => text().nullable()();
   Column<double> get longitude => real()();
   Column<double> get latitude => real()();
-
-  @override
-  Set<Column<Object>> get primaryKey => {id};
 }
 
 @DriftDatabase(tables: [EntriesCache, LocationPresets])
