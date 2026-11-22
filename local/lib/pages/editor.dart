@@ -64,6 +64,7 @@ class _EntryEditorState extends ConsumerState<EntryEditorPage> {
                           children: [
                             MarkdownEditor(
                               initialValue: value.body,
+                              autofocus: true,
                               onChanged: (text) => setState(() {
                                 body = text;
                                 hasBeenEdited = true;

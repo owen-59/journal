@@ -55,6 +55,7 @@ dev_dependencies:
   flutter_launcher_icons: ^0.14.4
   lints: ^6.1.0
   auto_route_generator: ^10.6.0
+  patchwork: ^0.7.0
 
 flutter:
   uses-material-design: true

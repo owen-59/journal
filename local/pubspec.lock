@@ -800,10 +800,9 @@ packages:
   markdown_editor_live:
     dependency: "direct main"
     description:
-      name: markdown_editor_live
-      sha256: d028b64aa6d85ba40fe15e87410b0ff88b238caaec0efa298086eaf18b6d51c5
-      url: "https://pub.dev"
-    source: hosted
+      path: ".dart_tool/patchwork/markdown_editor_live@0.6.0"
+      relative: true
+    source: path
     version: "0.6.0"
   matcher:
     dependency: transitive
@@ -893,6 +892,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.0.0"
+  patchwork:
+    dependency: "direct dev"
+    description:
+      name: patchwork
+      sha256: "1caf1d5fbab5331d4c08aa67f2dd1c78b9b31948bda57645bc244c0a24fedc67"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.7.0"
   path:
     dependency: "direct main"
     description:
