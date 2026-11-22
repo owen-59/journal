@@ -1,3 +1,5 @@
+import "dart:async";
+
 import "package:auto_route/auto_route.dart";
 import "package:flutter/material.dart";
 import "package:flutter_keyboard_controller/flutter_keyboard_controller.dart";
@@ -31,6 +33,7 @@ class EntryEditorPage extends ConsumerStatefulWidget {
 class _EntryEditorState extends ConsumerState<EntryEditorPage> {
   String body = "";
   bool hasBeenEdited = false;
+  var saveTimer = Timer(const Duration(), () {});
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +52,7 @@ class _EntryEditorState extends ConsumerState<EntryEditorPage> {
         body: Builder(
           builder: (innerContext) => PopScope(
             onPopInvokedWithResult: (didPop, object) =>
-                onGoBack(didPop, context, object),
+                onGoBack(didPop, context, object, value),
             child: SafeArea(
               child: KeyboardAvoidingView(
                 child: Column(
@@ -64,6 +67,11 @@ class _EntryEditorState extends ConsumerState<EntryEditorPage> {
                               onChanged: (text) => setState(() {
                                 body = text;
                                 hasBeenEdited = true;
+                                saveTimer.cancel();
+                                saveTimer = Timer(
+                                  Duration(milliseconds: 100),
+                                  () => save(value),
+                                );
                               }),
                             ),
 
@@ -151,9 +159,21 @@ class _EntryEditorState extends ConsumerState<EntryEditorPage> {
     };
   }
 
-  void onGoBack(bool didPop, BuildContext context, Object? popObject) {
+  void onGoBack(
+    bool didPop,
+    BuildContext context,
+    Object? popObject,
+    Entry entry,
+  ) {
     if (!didPop || popObject == "DO_NOT_WRITE" || !hasBeenEdited) return;
-    ref.read(entryProvider(widget.dt).notifier).writeWith(body: body);
+    save(entry);
+  }
+
+  void save(Entry entry) {
+    logger.i("Saving entry");
+    ref
+        .read(entryProvider(widget.dt).notifier)
+        .writeWith(body: getCurrentContents(entry));
   }
 
   Future<void> setDatetime(
