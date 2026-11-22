@@ -14,6 +14,7 @@ import "package:local_journal/widgets/confirm_dialogue.dart";
 import "package:local_journal/widgets/error_card.dart";
 import "package:local_journal/widgets/images_list.dart";
 import "package:local_journal/widgets/location_card.dart";
+import "package:local_journal/widgets/preset_location_chooser.dart";
 import "package:local_journal/widgets/tags_editor.dart";
 import "package:local_journal/widgets/text_input.dialogue.dart";
 import "package:markdown_editor_live/markdown_editor_live.dart";
@@ -123,6 +124,8 @@ class _EntryEditorState extends ConsumerState<EntryEditorPage> {
                             icon: const Icon(Icons.edit_location_outlined),
                             onPressed: () =>
                                 onSetLocationClicked(context, value),
+                            onLongPress: () =>
+                                onSetPresetLocationClicked(context, value),
                           ),
                           IconButton.filledTonal(
                             icon: const Icon(Icons.delete_outline),
@@ -294,6 +297,21 @@ class _EntryEditorState extends ConsumerState<EntryEditorPage> {
     final location = await context.pushRoute<Location>(LocationEditorRoute());
 
     if (location == null) return;
+    await ref
+        .read(entryProvider(widget.dt).notifier)
+        .writeWith(body: getCurrentContents(entry), location: location);
+  }
+
+  Future<void> onSetPresetLocationClicked(
+    BuildContext context,
+    Entry entry,
+  ) async {
+    final location = await showModalBottomSheet<Location>(
+      context: context,
+      isScrollControlled: true,
+      builder: (_) => PresetLocationChooser(),
+    );
+
     await ref
         .read(entryProvider(widget.dt).notifier)
         .writeWith(body: getCurrentContents(entry), location: location);

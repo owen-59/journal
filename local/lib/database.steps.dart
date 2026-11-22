@@ -277,12 +277,107 @@ final class Schema6 extends i0.VersionedSchema {
   );
 }
 
+final class Schema7 extends i0.VersionedSchema {
+  Schema7({required super.database}) : super(version: 7);
+  @override
+  late final List<i1.DatabaseSchemaEntity> entities = [
+    entriesCache,
+    locationPresets,
+  ];
+  late final Shape2 entriesCache = Shape2(
+    source: i0.VersionedTable(
+      entityName: 'entries_cache',
+      withoutRowId: false,
+      isStrict: false,
+      tableConstraints: ['PRIMARY KEY(created_date)'],
+      columns: [
+        _column_0,
+        _column_1,
+        _column_6,
+        _column_2,
+        _column_5,
+        _column_3,
+        _column_4,
+      ],
+      attachedDatabase: database,
+    ),
+    alias: null,
+  );
+  late final Shape4 locationPresets = Shape4(
+    source: i0.VersionedTable(
+      entityName: 'location_presets',
+      withoutRowId: false,
+      isStrict: false,
+      tableConstraints: [],
+      columns: [_column_10, _column_11, _column_12, _column_13, _column_14],
+      attachedDatabase: database,
+    ),
+    alias: null,
+  );
+}
+
+class Shape4 extends i0.VersionedTable {
+  Shape4({required super.source, required super.alias}) : super.aliased();
+  i1.GeneratedColumn<int> get id =>
+      columnsByName['id']! as i1.GeneratedColumn<int>;
+  i1.GeneratedColumn<String> get name =>
+      columnsByName['name']! as i1.GeneratedColumn<String>;
+  i1.GeneratedColumn<String> get displayName =>
+      columnsByName['display_name']! as i1.GeneratedColumn<String>;
+  i1.GeneratedColumn<double> get longitude =>
+      columnsByName['longitude']! as i1.GeneratedColumn<double>;
+  i1.GeneratedColumn<double> get latitude =>
+      columnsByName['latitude']! as i1.GeneratedColumn<double>;
+}
+
+i1.GeneratedColumn<int> _column_10(String aliasedName) =>
+    i1.GeneratedColumn<int>(
+      'id',
+      aliasedName,
+      false,
+      hasAutoIncrement: true,
+      type: i1.DriftSqlType.int,
+      $customConstraints: 'NOT NULL PRIMARY KEY AUTOINCREMENT',
+    );
+i1.GeneratedColumn<String> _column_11(String aliasedName) =>
+    i1.GeneratedColumn<String>(
+      'name',
+      aliasedName,
+      true,
+      type: i1.DriftSqlType.string,
+      $customConstraints: 'NULL',
+    );
+i1.GeneratedColumn<String> _column_12(String aliasedName) =>
+    i1.GeneratedColumn<String>(
+      'display_name',
+      aliasedName,
+      true,
+      type: i1.DriftSqlType.string,
+      $customConstraints: 'NULL',
+    );
+i1.GeneratedColumn<double> _column_13(String aliasedName) =>
+    i1.GeneratedColumn<double>(
+      'longitude',
+      aliasedName,
+      false,
+      type: i1.DriftSqlType.double,
+      $customConstraints: 'NOT NULL',
+    );
+i1.GeneratedColumn<double> _column_14(String aliasedName) =>
+    i1.GeneratedColumn<double>(
+      'latitude',
+      aliasedName,
+      false,
+      type: i1.DriftSqlType.double,
+      $customConstraints: 'NOT NULL',
+    );
 i0.MigrationStepWithVersion migrationSteps({
   required Future<void> Function(i1.Migrator m, Schema2 schema) from1To2,
   required Future<void> Function(i1.Migrator m, Schema3 schema) from2To3,
   required Future<void> Function(i1.Migrator m, Schema4 schema) from3To4,
   required Future<void> Function(i1.Migrator m, Schema5 schema) from4To5,
   required Future<void> Function(i1.Migrator m, Schema6 schema) from5To6,
+  required Future<void> Function(i1.Migrator m, Schema7 schema) from6To7,
 }) {
   return (currentVersion, database) async {
     switch (currentVersion) {
@@ -311,6 +406,11 @@ i0.MigrationStepWithVersion migrationSteps({
         final migrator = i1.Migrator(database, schema);
         await from5To6(migrator, schema);
         return 6;
+      case 6:
+        final schema = Schema7(database: database);
+        final migrator = i1.Migrator(database, schema);
+        await from6To7(migrator, schema);
+        return 7;
       default:
         throw ArgumentError.value('Unknown migration from $currentVersion');
     }
@@ -323,6 +423,7 @@ i1.OnUpgrade stepByStep({
   required Future<void> Function(i1.Migrator m, Schema4 schema) from3To4,
   required Future<void> Function(i1.Migrator m, Schema5 schema) from4To5,
   required Future<void> Function(i1.Migrator m, Schema6 schema) from5To6,
+  required Future<void> Function(i1.Migrator m, Schema7 schema) from6To7,
 }) => i0.VersionedSchema.stepByStepHelper(
   step: migrationSteps(
     from1To2: from1To2,
@@ -330,5 +431,6 @@ i1.OnUpgrade stepByStep({
     from3To4: from3To4,
     from4To5: from4To5,
     from5To6: from5To6,
+    from6To7: from6To7,
   ),
 );

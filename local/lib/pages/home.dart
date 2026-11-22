@@ -42,6 +42,7 @@ class _HomeScreenState extends ConsumerState<HomePage> {
             });
           },
         ),
+        ExtrasRoute(),
       ],
       builder: (context, child) {
         final tabsRouter = AutoTabsRouter.of(context);
@@ -85,6 +86,10 @@ class _HomeScreenState extends ConsumerState<HomePage> {
               NavigationDestination(
                 icon: const Icon(Icons.calendar_month),
                 label: "Calendar",
+              ),
+              NavigationDestination(
+                icon: const Icon(Icons.menu),
+                label: "Menu",
               ),
             ],
           ),
