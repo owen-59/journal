@@ -200,6 +200,16 @@ class DayCell extends ConsumerWidget {
                     : SizedBox.shrink(),
               _ => SizedBox.shrink(),
             },
+            ?DateUtils.isSameDay(dt, DateTime.now())
+                ? Container(
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                        color: Theme.of(context).colorScheme.primary,
+                        width: 2.0,
+                      ),
+                    ),
+                  )
+                : null,
           ],
         ),
       ),
