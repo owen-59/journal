@@ -34,50 +34,70 @@ class _ImageViewState extends ConsumerState<ImageView> {
         padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
         child: ClipRRect(
           borderRadius: const BorderRadius.all(Radius.circular(12.0)),
-          child: Image.memory(
-            bytes,
-            frameBuilder: (context, child, frame, _) {
-              if (frame == null) {
-                return const Padding(
-                  padding: EdgeInsetsGeometry.symmetric(vertical: 5),
-                  child: Center(child: CircularProgressIndicator()),
-                );
-              } else {
-                return Stack(
-                  children: [
-                    child,
-                    Align(
-                      alignment: Alignment.topRight,
-                      child: Padding(
-                        padding: const EdgeInsets.only(top: 10, right: 10),
-                        child: MenuAnchor(
-                          controller: _menuController,
-                          menuChildren: [
-                            MenuItemButton(
-                              leadingIcon: const Icon(Icons.delete),
-                              child: const Text("Delete"),
-                              onPressed: () => widget.removeCallback(),
+          child: Container(
+            color: Theme.of(context).colorScheme.primaryContainer,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Image.memory(
+                  bytes,
+                  frameBuilder: (context, child, frame, _) {
+                    if (frame == null) {
+                      return const Padding(
+                        padding: EdgeInsetsGeometry.symmetric(vertical: 5),
+                        child: Center(child: CircularProgressIndicator()),
+                      );
+                    } else {
+                      return Stack(
+                        children: [
+                          child,
+                          Align(
+                            alignment: Alignment.topRight,
+                            child: Padding(
+                              padding: const EdgeInsets.only(
+                                top: 10,
+                                right: 10,
+                              ),
+                              child: MenuAnchor(
+                                controller: _menuController,
+                                menuChildren: [
+                                  MenuItemButton(
+                                    leadingIcon: const Icon(Icons.delete),
+                                    child: const Text("Delete"),
+                                    onPressed: () => widget.removeCallback(),
+                                  ),
+                                ],
+                                builder: (context, controller, _) {
+                                  return IconButton(
+                                    icon: Icon(Icons.menu),
+                                    onPressed: () {
+                                      if (controller.isOpen) {
+                                        controller.close();
+                                      } else {
+                                        controller.open();
+                                      }
+                                    },
+                                  );
+                                },
+                              ),
                             ),
-                          ],
-                          builder: (context, controller, _) {
-                            return IconButton(
-                              icon: Icon(Icons.menu),
-                              onPressed: () {
-                                if (controller.isOpen) {
-                                  controller.close();
-                                } else {
-                                  controller.open();
-                                }
-                              },
-                            );
-                          },
-                        ),
-                      ),
+                          ),
+                        ],
+                      );
+                    }
+                  },
+                ),
+                Padding(
+                  padding: const EdgeInsetsGeometry.all(8.0),
+                  child: Text(
+                    widget.name,
+                    style: TextStyle(
+                      color: Theme.of(context).colorScheme.onPrimaryContainer,
                     ),
-                  ],
-                );
-              }
-            },
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),
