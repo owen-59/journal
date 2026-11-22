@@ -170,7 +170,6 @@ class _EntryEditorState extends ConsumerState<EntryEditorPage> {
   }
 
   void save(Entry entry) {
-    logger.i("Saving entry");
     ref
         .read(entryProvider(widget.dt).notifier)
         .writeWith(body: getCurrentContents(entry));
@@ -309,7 +308,7 @@ class _EntryEditorState extends ConsumerState<EntryEditorPage> {
   }
 
   Future<void> onRemoveImageLink(Entry entry, String imageData) async {
-    logger.i("Removing $imageData");
+    logger.d("Removing $imageData from ${entry.datetime}");
     await ref.read(entryProvider(widget.dt).notifier).removeImage(imageData);
   }
 

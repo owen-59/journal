@@ -22,7 +22,6 @@ class FsSetup extends _$FsSetup {
         .toList();
     if (matchingPermissions.isNotEmpty) {
       DataFolder().setFolder(matchingPermissions[0].uri);
-      logger.i("fsSetup: true and uri was set.");
       return true;
     }
     logger.w(
