@@ -1,0 +1,28 @@
+diff --git a/lib/src/markdown_editor.dart b/lib/src/markdown_editor.dart
+index 2064009b0dbc6c5dd534056e52ae4d6d75fcc915..0655b12174420427f2ef313e42213af5e268d76f 100644
+--- a/lib/src/markdown_editor.dart
++++ b/lib/src/markdown_editor.dart
+@@ -11,6 +11,7 @@ class MarkdownEditor extends StatefulWidget {
+   final InputDecoration? decoration;
+   final bool useSoftTabs;
+   final int tabWidth;
++  final bool autofocus;
+ 
+   /// The height of inline images in lines of text.
+   /// The actual height is calculated as: fontSize * imageHeightLines.
+@@ -28,6 +29,7 @@ class MarkdownEditor extends StatefulWidget {
+     this.useSoftTabs = true,
+     this.tabWidth = 2,
+     this.imageHeightLines = 5,
++    this.autofocus = false
+   });
+ 
+   @override
+@@ -300,6 +302,7 @@ class _MarkdownEditorState extends State<MarkdownEditor> {
+         onChanged: widget.onChanged,
+         onTap: _onTap,
+         style: widget.style,
++        autofocus: widget.autofocus,
+         decoration:
+             widget.decoration?.copyWith(
+               contentPadding:

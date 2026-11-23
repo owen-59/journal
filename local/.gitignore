@@ -11,3 +11,6 @@ test/**/*.mocks.dart
 devtools_options.yaml
 local.properties
 release-keystore.jks
+
+.patchwork
+pubspec_overrides.yaml
