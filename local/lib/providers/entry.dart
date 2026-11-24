@@ -105,7 +105,7 @@ class EntryNotifier extends _$EntryNotifier {
     ref.read(entryListProvider.notifier).removeEntry(current.datetime);
   }
 
-  Future<void> addImage(Uint8List bytes, String name, String sourcePath) async {
+  Future<void> addImage(Uint8List bytes, String name, String ext) async {
     final saf = ref.watch(safProvider);
     final safStream = ref.watch(safStreamProvider);
     final keepAliveLink = ref.keepAlive();
@@ -117,7 +117,7 @@ class EntryNotifier extends _$EntryNotifier {
         rootFolder,
         bytes,
         name,
-        path.extension(sourcePath),
+        ext,
         saf,
         safStream,
       );
