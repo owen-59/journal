@@ -1,4 +1,5 @@
 import "dart:async";
+import "dart:io";
 
 import "package:auto_route/auto_route.dart";
 import "package:flutter/material.dart";
@@ -20,6 +21,7 @@ import "package:local_journal/widgets/preset_location_chooser.dart";
 import "package:local_journal/widgets/tags_editor.dart";
 import "package:local_journal/widgets/text_input.dialogue.dart";
 import "package:markdown_editor_live/markdown_editor_live.dart";
+import "package:path/path.dart" as path;
 
 @RoutePage()
 class EntryEditorPage extends ConsumerStatefulWidget {
@@ -295,7 +297,7 @@ class _EntryEditorState extends ConsumerState<EntryEditorPage> {
             .writeWith(datetime: imageDt, body: getCurrentContents(entry));
         await ref
             .read(entryProvider(newEntry.datetime).notifier)
-            .addImage(bytes, name, image.path);
+            .addImage(bytes, name, path.extension(image.path));
         await ref.read(entryProvider(newEntry.datetime).notifier).writeWith();
         if (context.mounted) {
           context.replaceRoute(EntryEditorRoute(dt: newEntry.datetime));
@@ -303,7 +305,7 @@ class _EntryEditorState extends ConsumerState<EntryEditorPage> {
       } else {
         await ref
             .read(entryProvider(widget.dt).notifier)
-            .addImage(bytes, name, image.path);
+            .addImage(bytes, name, path.extension(image.path));
       }
     }
   }
