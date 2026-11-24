@@ -76,9 +76,12 @@ class _CalendarViewState extends ConsumerState<CalendarPage> {
                 setState(() => _monthTitleHeight = size.height);
               }
             },
-            child: Text(
-              "February 2026",
-              style: Theme.of(context).textTheme.titleLarge,
+            child: Padding(
+              padding: const EdgeInsetsGeometry.only(top: 8.0),
+              child: Text(
+                "February 2026",
+                style: Theme.of(context).textTheme.titleLarge,
+              ),
             ),
           ),
         ),
@@ -101,9 +104,12 @@ class MonthSectionWidget extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          DateFormat.yMMMM().format(month),
-          style: Theme.of(context).textTheme.titleLarge,
+        Padding(
+          padding: const EdgeInsetsGeometry.only(top: 8.0),
+          child: Text(
+            DateFormat.yMMMM().format(month),
+            style: Theme.of(context).textTheme.titleLarge,
+          )
         ),
         Table(
           defaultColumnWidth: const FlexColumnWidth(),
