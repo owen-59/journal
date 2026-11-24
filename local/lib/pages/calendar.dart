@@ -109,7 +109,7 @@ class MonthSectionWidget extends StatelessWidget {
           child: Text(
             DateFormat.yMMMM().format(month),
             style: Theme.of(context).textTheme.titleLarge,
-          )
+          ),
         ),
         Table(
           defaultColumnWidth: const FlexColumnWidth(),
