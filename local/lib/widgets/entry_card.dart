@@ -119,7 +119,9 @@ class EntryCard extends ConsumerWidget {
                             AsyncData(value: final imageBytes)
                                 when imageBytes != null =>
                               Padding(
-                                padding: const EdgeInsetsGeometry.only(left: 4.0),
+                                padding: const EdgeInsetsGeometry.only(
+                                  left: 4.0,
+                                ),
                                 child: SizedBox.square(
                                   dimension: 80,
                                   child: ClipRRect(
@@ -129,15 +131,21 @@ class EntryCard extends ConsumerWidget {
                                     child: Image.memory(
                                       imageBytes,
                                       fit: BoxFit.cover,
-                                      frameBuilder: (context, child, frame, _) =>
-                                          frame == null
+                                      frameBuilder:
+                                          (
+                                            context,
+                                            child,
+                                            frame,
+                                            _,
+                                          ) => frame == null
                                           ? const Center(
-                                              child: CircularProgressIndicator(),
+                                              child:
+                                                  CircularProgressIndicator(),
                                             )
                                           : child,
                                     ),
                                   ),
-                                )
+                                ),
                               ),
                             _ => SizedBox.shrink(),
                           },
