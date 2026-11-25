@@ -51,7 +51,7 @@ void main() {
 
     testWidgets("Contains correct subtitle", (tester) async {
       await _setupTests(tester);
-      expect(find.text("00:00 01 January - TAG1, TAG2"), findsOne);
+      expect(find.text("00:00 Thu 01 January - TAG1, TAG2"), findsOne);
     });
   });
 }

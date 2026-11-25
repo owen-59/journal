@@ -102,7 +102,7 @@ class EntryCard extends ConsumerWidget {
                                 ),
                                 Spacer(),
                                 Text(
-                                  "${DateFormat("HH:mm dd MMMM").format(entryDt)}${value.tags.isNotEmpty ? " - " : ""}${value.tags.join(", ")}",
+                                  "${DateFormat("HH:mm E dd MMMM").format(entryDt)}${value.tags.isNotEmpty ? " - " : ""}${value.tags.join(", ")}",
                                   maxLines: 1,
                                   overflow: TextOverflow.fade,
                                   style: Theme.of(context).textTheme.labelMedium
