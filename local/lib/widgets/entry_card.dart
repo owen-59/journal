@@ -118,21 +118,32 @@ class EntryCard extends ConsumerWidget {
                           switch (image) {
                             AsyncData(value: final imageBytes)
                                 when imageBytes != null =>
-                              SizedBox.square(
-                                dimension: 80,
-                                child: ClipRRect(
-                                  borderRadius: const BorderRadius.all(
-                                    Radius.circular(4.0),
-                                  ),
-                                  child: Image.memory(
-                                    imageBytes,
-                                    fit: BoxFit.cover,
-                                    frameBuilder: (context, child, frame, _) =>
-                                        frame == null
-                                        ? const Center(
-                                            child: CircularProgressIndicator(),
-                                          )
-                                        : child,
+                              Padding(
+                                padding: const EdgeInsetsGeometry.only(
+                                  left: 4.0,
+                                ),
+                                child: SizedBox.square(
+                                  dimension: 80,
+                                  child: ClipRRect(
+                                    borderRadius: const BorderRadius.all(
+                                      Radius.circular(4.0),
+                                    ),
+                                    child: Image.memory(
+                                      imageBytes,
+                                      fit: BoxFit.cover,
+                                      frameBuilder:
+                                          (
+                                            context,
+                                            child,
+                                            frame,
+                                            _,
+                                          ) => frame == null
+                                          ? const Center(
+                                              child:
+                                                  CircularProgressIndicator(),
+                                            )
+                                          : child,
+                                    ),
                                   ),
                                 ),
                               ),
