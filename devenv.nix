@@ -20,6 +20,7 @@
             nodejs.enable = true;
             pnpm.enable = true;
         };
+        rust.enable = true;
     };
 
     packages = with pkgs; [
