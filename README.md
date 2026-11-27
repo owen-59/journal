@@ -27,7 +27,8 @@ Currently, run the web version is not fully developed, and has no authentication
 Clone the repository with `git`, install `pnpm` and `flutter`. In the `web-frontend` directory, run `flutter run -d web-server --web-port=8080 --release`, and in the `web-backend` directory, run `pnpm run dev`. Currently, you have to be accessing the website on the same computer as you are running it.
 
 ## Transitioning from Day One
-This tool is very rough and does not support all Day One features. To run this tool, ensure you have node with typescript, and put your Journal Export in the folder root as Export-Journal/Export-Journal.json.
- - Download your Day One data as JSON.
- - Use the tool at [owen-59/dayone2journal](https://github.com/owen-59/dayone2journal).
+ - Download your Day One data as JSON (with media).
+ - Extract the zip into `dayone2journal/Export-Journal`, such that `Export-Journal` contains `Journal.json` and `photos`.
+ - Ensure rust is installed on your system.
+ - Run `cargo run`.
 
