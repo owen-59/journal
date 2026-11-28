@@ -24,43 +24,44 @@ void main() {
       final saf = MockSafClient();
       PathProviderPlatform.instance = FakePathProviderPlatform("/fake/cache/");
 
-      final cachePath = "/fake/cache/images/${DateTime(1970)}-image.jpg-${QualityLevel.thumbnailSmall}.jpg";
+      final cachePath =
+          "/fake/cache/images/${DateTime(1970)}-image.jpg-${QualityLevel.thumbnailSmall}.jpg";
       fs.file(cachePath)
         ..createSync(recursive: true)
-        ..writeAsBytesSync([1,2,3]);
+        ..writeAsBytesSync([1, 2, 3]);
 
       await IOOverrides.runZoned(
         () async {
           final container = ProviderContainer.test(
             retry: (_, _) => null,
-            overrides: [
-              safProvider.overrideWithValue(saf) 
-            ]
+            overrides: [safProvider.overrideWithValue(saf)],
           );
 
           container.listen(
             imageProvider(
-              DateTime(1970), 
-              "image.jpg", 
-              QualityLevel.thumbnailSmall
+              DateTime(1970),
+              "image.jpg",
+              QualityLevel.thumbnailSmall,
             ).future,
-            (_,_) {}
+            (_, _) {},
           );
 
           final image = await container.read(
             imageProvider(
-              DateTime(1970), 
-              "image.jpg", 
-              QualityLevel.thumbnailSmall
-            ).future
+              DateTime(1970),
+              "image.jpg",
+              QualityLevel.thumbnailSmall,
+            ).future,
           );
 
-          expect(image, Uint8List.fromList([1,2,3]));
+          expect(image, Uint8List.fromList([1, 2, 3]));
         },
         createFile: (path) => fs.file(path),
         createDirectory: (path) => fs.directory(path),
-        fseGetType: (path, followLinks) => fs.type(path, followLinks: followLinks),
-        fseGetTypeSync: (path, followLinks) => fs.typeSync(path, followLinks: followLinks)
+        fseGetType: (path, followLinks) =>
+            fs.type(path, followLinks: followLinks),
+        fseGetTypeSync: (path, followLinks) =>
+            fs.typeSync(path, followLinks: followLinks),
       );
 
       verifyZeroInteractions(saf);

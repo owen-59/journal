@@ -14,4 +14,3 @@ class FakePathProviderPlatform extends Fake
     return mockPath;
   }
 }
-
