@@ -9,6 +9,21 @@ class TagEntry {
   final String name;
 
   const TagEntry({required this.frequency, required this.name});
+
+  @override
+  String toString() {
+    return "TagEntry(frequency: $frequency, name: $name)";
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    if (other is! TagEntry) return false;
+    return frequency == other.frequency && name == other.name;
+  }
+
+  @override
+  int get hashCode => Object.hash(frequency, name);
 }
 
 @riverpod
