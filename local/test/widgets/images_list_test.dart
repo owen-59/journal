@@ -8,7 +8,7 @@ import "package:local_journal/widgets/image_view.dart";
 import "package:local_journal/widgets/images_list.dart";
 import "package:mockito/annotations.dart";
 
-import "calendar_view_test.mocks.dart";
+import "images_list_test.mocks.dart";
 
 @GenerateMocks(
   [],
