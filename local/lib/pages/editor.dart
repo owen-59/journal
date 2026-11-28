@@ -340,6 +340,7 @@ class _EntryEditorState extends ConsumerState<EntryEditorPage> {
   }
 
   String getCurrentContents(Entry entry) {
+    saveTimer.cancel();
     if (hasBeenEdited) return body;
     return entry.body;
   }
